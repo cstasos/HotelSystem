@@ -56,14 +56,20 @@ public class mainwindow extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jBookinglist = new javax.swing.JList<>();
+        jButtonpanel = new javax.swing.JPanel();
         jConfirm = new javax.swing.JButton();
+        jClearbutton = new javax.swing.JButton();
         jTypepanel = new javax.swing.JPanel();
         jComboBox1 = new javax.swing.JComboBox<>();
         jCheckintext = new JFormattedTextField(factory, new Date());
         jCheckouttext = new javax.swing.JFormattedTextField(factory, new Date());
         jRoompanel = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        jAddroom = new javax.swing.JButton();
+        jRemoveroom = new javax.swing.JButton();
+        jCustomerpanel = new javax.swing.JPanel();
+        jCustomer = new javax.swing.JLabel();
+        jaddcustomer = new javax.swing.JButton();
         jTabbedPane3 = new javax.swing.JTabbedPane();
         jTabbedPane4 = new javax.swing.JTabbedPane();
 
@@ -88,9 +94,16 @@ public class mainwindow extends javax.swing.JFrame {
 
         jBookpanel.add(jScrollPane1);
 
+        jButtonpanel.setLayout(new java.awt.GridLayout(1, 2));
+
         jConfirm.setText("Confirm");
         jConfirm.setPreferredSize(new java.awt.Dimension(30, 50));
-        jBookpanel.add(jConfirm);
+        jButtonpanel.add(jConfirm);
+
+        jClearbutton.setText("Clear");
+        jButtonpanel.add(jClearbutton);
+
+        jBookpanel.add(jButtonpanel);
 
         jBookingpanel.add(jBookpanel, java.awt.BorderLayout.WEST);
 
@@ -107,15 +120,25 @@ public class mainwindow extends javax.swing.JFrame {
         jCheckouttext.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTypepanel.add(jCheckouttext);
 
-        jRoompanel.setLayout(new java.awt.BorderLayout());
-
         jLabel2.setText("Room");
-        jRoompanel.add(jLabel2, java.awt.BorderLayout.CENTER);
+        jRoompanel.add(jLabel2);
 
-        jButton1.setText("jButton1");
-        jRoompanel.add(jButton1, java.awt.BorderLayout.PAGE_END);
+        jAddroom.setText("+");
+        jRoompanel.add(jAddroom);
+
+        jRemoveroom.setText("-");
+        jRoompanel.add(jRemoveroom);
 
         jTypepanel.add(jRoompanel);
+
+        jCustomer.setText("Customer");
+        jCustomerpanel.add(jCustomer);
+        jCustomer.getAccessibleContext().setAccessibleName("Customer");
+
+        jaddcustomer.setText("+");
+        jCustomerpanel.add(jaddcustomer);
+
+        jTypepanel.add(jCustomerpanel);
 
         jBookingpanel.add(jTypepanel, java.awt.BorderLayout.EAST);
 
@@ -127,7 +150,7 @@ public class mainwindow extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 595, Short.MAX_VALUE)
+            .addComponent(jTabbedPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 417, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -173,16 +196,21 @@ public class mainwindow extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jAddroom;
     private javax.swing.JList<String> jBookinglist;
     private javax.swing.JPanel jBookingpanel;
     private javax.swing.JPanel jBookpanel;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JPanel jButtonpanel;
     private javax.swing.JFormattedTextField jCheckintext;
     private javax.swing.JFormattedTextField jCheckouttext;
+    private javax.swing.JButton jClearbutton;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JButton jConfirm;
+    private javax.swing.JLabel jCustomer;
+    private javax.swing.JPanel jCustomerpanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JButton jRemoveroom;
     private javax.swing.JPanel jRoompanel;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
@@ -190,5 +218,6 @@ public class mainwindow extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane3;
     private javax.swing.JTabbedPane jTabbedPane4;
     private javax.swing.JPanel jTypepanel;
+    private javax.swing.JButton jaddcustomer;
     // End of variables declaration//GEN-END:variables
 }
