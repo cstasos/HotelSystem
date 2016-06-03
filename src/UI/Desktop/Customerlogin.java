@@ -5,17 +5,43 @@
  */
 package UI.Desktop;
 
+import java.awt.Color;
+import javax.swing.BorderFactory;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author sakis
  */
 public class Customerlogin extends javax.swing.JFrame {
+    private mainwindow myfather;
 
     /**
      * Creates new form Customerlogin
      */
-    public Customerlogin() {
+    public Customerlogin(mainwindow mw) {
+        this.myfather = mw;
         initComponents();
+        myInit();
+    }
+    
+    private void myInit(){
+        this.jlogin.setSelected(true);
+    }
+    
+    private boolean CheckName(){
+        this.jLnamefield.setBorder(null);
+        this.jFnamefield.setBorder(null);
+        if(this.jLnamefield.getText().equals(""))
+            this.jLnamefield.setBorder(BorderFactory.createLineBorder(Color.red));
+        
+        if(this.jFnamefield.getText().equals(""))
+            this.jFnamefield.setBorder(BorderFactory.createLineBorder(Color.red));
+        
+        if(this.jLnamefield.getText().equals("") || this.jFnamefield.getText().equals(""))
+            return false;
+        
+        return true;
     }
 
     /**
@@ -34,9 +60,9 @@ public class Customerlogin extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
-        jRadioButton1 = new javax.swing.JRadioButton();
+        jlogin = new javax.swing.JRadioButton();
         jPanel7 = new javax.swing.JPanel();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        jSignup = new javax.swing.JRadioButton();
         jPanel6 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         jSearchfield = new javax.swing.JTextField();
@@ -55,12 +81,10 @@ public class Customerlogin extends javax.swing.JFrame {
         jGender = new javax.swing.JComboBox<>();
         jPanel13 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jIDfield = new javax.swing.JTextPane();
+        jIDfield = new javax.swing.JTextField();
         jPanel14 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jPhonefield = new javax.swing.JTextPane();
+        jPhonefield = new javax.swing.JTextField();
         jClear = new javax.swing.JButton();
         jPanel15 = new javax.swing.JPanel();
         jCancel = new javax.swing.JButton();
@@ -114,13 +138,18 @@ public class Customerlogin extends javax.swing.JFrame {
 
         jPanel4.add(jPanel5);
 
-        jGroupbutton.add(jRadioButton1);
-        jRadioButton1.setText("Log In");
-        jRadioButton1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jRadioButton1.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        jRadioButton1.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        jRadioButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jPanel4.add(jRadioButton1);
+        jGroupbutton.add(jlogin);
+        jlogin.setText("Log In");
+        jlogin.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jlogin.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        jlogin.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        jlogin.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jlogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jloginActionPerformed(evt);
+            }
+        });
+        jPanel4.add(jlogin);
 
         jPanel7.setMaximumSize(new java.awt.Dimension(120, 50));
         jPanel7.setMinimumSize(new java.awt.Dimension(0, 0));
@@ -140,13 +169,18 @@ public class Customerlogin extends javax.swing.JFrame {
 
         jPanel4.add(jPanel7);
 
-        jGroupbutton.add(jRadioButton2);
-        jRadioButton2.setText("Sign Up");
-        jRadioButton2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jRadioButton2.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        jRadioButton2.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        jRadioButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jPanel4.add(jRadioButton2);
+        jGroupbutton.add(jSignup);
+        jSignup.setText("Sign Up");
+        jSignup.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jSignup.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        jSignup.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        jSignup.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jSignup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jSignupActionPerformed(evt);
+            }
+        });
+        jPanel4.add(jSignup);
 
         jPanel6.setMaximumSize(new java.awt.Dimension(120, 50));
         jPanel6.setPreferredSize(new java.awt.Dimension(100, 25));
@@ -213,12 +247,16 @@ public class Customerlogin extends javax.swing.JFrame {
         jLabel2.setText("Last Name :");
         jLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         jPanel11.add(jLabel2);
+
+        jLnamefield.setEnabled(false);
         jPanel11.add(jLnamefield);
 
         jPanel12.setLayout(new java.awt.GridLayout(1, 2));
 
         jLabel3.setText("First Name :");
         jPanel12.add(jLabel3);
+
+        jFnamefield.setEnabled(false);
         jPanel12.add(jFnamefield);
 
         jPanel9.setLayout(new java.awt.GridLayout(1, 2));
@@ -227,6 +265,7 @@ public class Customerlogin extends javax.swing.JFrame {
         jPanel9.add(jLabel4);
 
         jGender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Male", "Female" }));
+        jGender.setEnabled(false);
         jPanel9.add(jGender);
 
         jPanel13.setLayout(new java.awt.GridLayout(1, 2));
@@ -234,20 +273,23 @@ public class Customerlogin extends javax.swing.JFrame {
         jLabel5.setText("ID Number :");
         jPanel13.add(jLabel5);
 
-        jScrollPane2.setViewportView(jIDfield);
-
-        jPanel13.add(jScrollPane2);
+        jIDfield.setEnabled(false);
+        jPanel13.add(jIDfield);
 
         jPanel14.setLayout(new java.awt.GridLayout(1, 2));
 
         jLabel6.setText("Telephone :");
         jPanel14.add(jLabel6);
 
-        jScrollPane3.setViewportView(jPhonefield);
-
-        jPanel14.add(jScrollPane3);
+        jPhonefield.setEnabled(false);
+        jPanel14.add(jPhonefield);
 
         jClear.setText("Clear");
+        jClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jClearActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
@@ -310,6 +352,11 @@ public class Customerlogin extends javax.swing.JFrame {
         jOK.setText("OK");
         jOK.setToolTipText("");
         jOK.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jOK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jOKActionPerformed(evt);
+            }
+        });
         jPanel15.add(jOK);
 
         jPanel3.add(jPanel15, java.awt.BorderLayout.SOUTH);
@@ -334,6 +381,73 @@ public class Customerlogin extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jloginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jloginActionPerformed
+        // action enable
+        this.jSearch.setEnabled(true);
+        this.jSearchfield.setEnabled(true);
+        this.jList1.setEnabled(true);
+
+        // action disable
+        this.jLnamefield.setEnabled(false);
+        this.jFnamefield.setEnabled(false);
+        this.jGender.setEnabled(false);
+        this.jIDfield.setEnabled(false);
+        this.jPhonefield.setEnabled(false);
+        
+    }//GEN-LAST:event_jloginActionPerformed
+
+    private void jSignupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSignupActionPerformed
+        // action enable
+        this.jLnamefield.setEnabled(true);
+        this.jFnamefield.setEnabled(true);
+        this.jGender.setEnabled(true);
+        this.jIDfield.setEnabled(true);
+        this.jPhonefield.setEnabled(true);
+        
+        // action disable
+        this.jSearch.setEnabled(false);
+        this.jSearchfield.setEnabled(false);
+        this.jList1.setEnabled(false);
+    }//GEN-LAST:event_jSignupActionPerformed
+
+    private void jOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jOKActionPerformed
+        // return Customer
+        String str = null;
+        int joption = 0;
+        if(this.jlogin.isSelected()){
+            if(!this.jList1.isSelectionEmpty()){
+                str = new String(this.jList1.getSelectedValue());
+                this.myfather.addCustomername(str);
+            }else{
+                JOptionPane.showMessageDialog(null, "You have to select a customer first", "Alert", JOptionPane.ERROR_MESSAGE);
+                joption = 1;
+            }
+        }else if(this.jSignup.isSelected()){
+            if(CheckName()){
+                str = new String(this.jLnamefield.getText()+" "+this.jFnamefield.getText());
+                this.myfather.addCustomername(str);
+            }else{
+                JOptionPane.showMessageDialog(null, "Invalid Last Name or First Name", "Alert", JOptionPane.ERROR_MESSAGE);
+                joption = 1;
+            }
+        }
+        if(joption == 0)
+            this.dispose();
+            
+    }//GEN-LAST:event_jOKActionPerformed
+
+    private void jClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jClearActionPerformed
+        // Clear
+        this.jSearchfield.setText("Search Customer");
+        this.jList1.removeAll();
+        this.jLnamefield.setText("");
+        this.jFnamefield.setText("");
+        this.jGender.setSelectedIndex(0);
+        this.jIDfield.setText("");
+        this.jPhonefield.setText("");
+        
+    }//GEN-LAST:event_jClearActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jCancel;
@@ -341,7 +455,7 @@ public class Customerlogin extends javax.swing.JFrame {
     private javax.swing.JTextField jFnamefield;
     private javax.swing.JComboBox<String> jGender;
     private javax.swing.ButtonGroup jGroupbutton;
-    private javax.swing.JTextPane jIDfield;
+    private javax.swing.JTextField jIDfield;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -367,14 +481,12 @@ public class Customerlogin extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JTextPane jPhonefield;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JTextField jPhonefield;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JButton jSearch;
     private javax.swing.JTextField jSearchfield;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JRadioButton jSignup;
+    private javax.swing.JRadioButton jlogin;
     // End of variables declaration//GEN-END:variables
 }
