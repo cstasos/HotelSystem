@@ -53,96 +53,249 @@ public class mainwindow extends javax.swing.JFrame {
         jTabbedPane2 = new javax.swing.JTabbedPane();
         jBookingpanel = new javax.swing.JPanel();
         jBookpanel = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jBookinglist = new javax.swing.JList<>();
         jButtonpanel = new javax.swing.JPanel();
-        jConfirm = new javax.swing.JButton();
         jClearbutton = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jConfirm = new javax.swing.JButton();
         jTypepanel = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
         jComboBox1 = new javax.swing.JComboBox<>();
+        jPanel4 = new javax.swing.JPanel();
         jCheckintext = new JFormattedTextField(factory, new Date());
+        jPanel5 = new javax.swing.JPanel();
         jCheckouttext = new javax.swing.JFormattedTextField(factory, new Date());
-        jRoompanel = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jPanel9 = new javax.swing.JPanel();
         jAddroom = new javax.swing.JButton();
         jRemoveroom = new javax.swing.JButton();
-        jCustomerpanel = new javax.swing.JPanel();
-        jCustomer = new javax.swing.JLabel();
-        jaddcustomer = new javax.swing.JButton();
+        jPanel12 = new javax.swing.JPanel();
+        jPanel11 = new javax.swing.JPanel();
+        jCustomerbutton = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        jCustomertext = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         jTabbedPane3 = new javax.swing.JTabbedPane();
         jTabbedPane4 = new javax.swing.JTabbedPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jTabbedPane2.setToolTipText("");
+
         jBookingpanel.setLayout(new java.awt.BorderLayout(10, 10));
 
         jBookpanel.setLayout(new javax.swing.BoxLayout(jBookpanel, javax.swing.BoxLayout.PAGE_AXIS));
 
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Booking");
-        jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jLabel1.setMaximumSize(new java.awt.Dimension(57, 10));
-        jLabel1.setMinimumSize(new java.awt.Dimension(10, 10));
-        jLabel1.setPreferredSize(new java.awt.Dimension(57, 50));
-        jBookpanel.add(jLabel1);
-
         jBookinglist.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jBookinglist.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jBookinglist.setPreferredSize(new java.awt.Dimension(100, 300));
+        jBookinglist.setVisibleRowCount(15);
         jScrollPane1.setViewportView(jBookinglist);
 
         jBookpanel.add(jScrollPane1);
 
-        jButtonpanel.setLayout(new java.awt.GridLayout(1, 2));
-
-        jConfirm.setText("Confirm");
-        jConfirm.setPreferredSize(new java.awt.Dimension(30, 50));
-        jButtonpanel.add(jConfirm);
+        jButtonpanel.setMaximumSize(new java.awt.Dimension(32767, 60));
+        jButtonpanel.setLayout(new java.awt.GridLayout(1, 0));
 
         jClearbutton.setText("Clear");
+        jClearbutton.setToolTipText("Clear the fields");
+        jClearbutton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jClearbutton.setMaximumSize(new java.awt.Dimension(49, 50));
+        jClearbutton.setName(""); // NOI18N
         jButtonpanel.add(jClearbutton);
+
+        jPanel1.setMaximumSize(new java.awt.Dimension(20, 20));
+        jPanel1.setMinimumSize(new java.awt.Dimension(20, 20));
+        jPanel1.setPreferredSize(new java.awt.Dimension(20, 20));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 125, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 29, Short.MAX_VALUE)
+        );
+
+        jButtonpanel.add(jPanel1);
+
+        jConfirm.setText("Confirm");
+        jConfirm.setToolTipText("Confirm the reservation");
+        jConfirm.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonpanel.add(jConfirm);
 
         jBookpanel.add(jButtonpanel);
 
-        jBookingpanel.add(jBookpanel, java.awt.BorderLayout.WEST);
+        jBookingpanel.add(jBookpanel, java.awt.BorderLayout.CENTER);
 
         jTypepanel.setLayout(new javax.swing.BoxLayout(jTypepanel, javax.swing.BoxLayout.PAGE_AXIS));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox1.setMaximumSize(new java.awt.Dimension(79, 27));
+        jPanel2.setMaximumSize(new java.awt.Dimension(32767, 20));
+        jPanel2.setMinimumSize(new java.awt.Dimension(100, 20));
+        jPanel2.setPreferredSize(new java.awt.Dimension(150, 20));
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 165, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 20, Short.MAX_VALUE)
+        );
+
+        jTypepanel.add(jPanel2);
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Single", "Dual", "Triple", "Quando", "Suite", "SuperLux" }));
+        jComboBox1.setToolTipText("Select the type of room");
+        jComboBox1.setMaximumSize(new java.awt.Dimension(115, 27));
         jTypepanel.add(jComboBox1);
+
+        jPanel4.setMaximumSize(new java.awt.Dimension(32767, 12));
+        jPanel4.setMinimumSize(new java.awt.Dimension(100, 12));
+        jPanel4.setPreferredSize(new java.awt.Dimension(150, 12));
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 165, Short.MAX_VALUE)
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 12, Short.MAX_VALUE)
+        );
+
+        jTypepanel.add(jPanel4);
 
         jCheckintext.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jCheckintext.setToolTipText("Check in");
+        jCheckintext.setMaximumSize(new java.awt.Dimension(115, 40));
         jTypepanel.add(jCheckintext);
 
+        jPanel5.setMaximumSize(new java.awt.Dimension(32767, 7));
+        jPanel5.setMinimumSize(new java.awt.Dimension(100, 7));
+        jPanel5.setPreferredSize(new java.awt.Dimension(150, 7));
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 165, Short.MAX_VALUE)
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 7, Short.MAX_VALUE)
+        );
+
+        jTypepanel.add(jPanel5);
+
         jCheckouttext.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jCheckouttext.setToolTipText("Check out");
+        jCheckouttext.setMaximumSize(new java.awt.Dimension(115, 40));
         jTypepanel.add(jCheckouttext);
 
-        jLabel2.setText("Room");
-        jRoompanel.add(jLabel2);
+        jPanel6.setLayout(new java.awt.GridLayout(2, 0));
 
-        jAddroom.setText("+");
-        jRoompanel.add(jAddroom);
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("Room");
+        jLabel3.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        jLabel3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jPanel6.add(jLabel3);
 
-        jRemoveroom.setText("-");
-        jRoompanel.add(jRemoveroom);
+        jAddroom.setText("Search");
+        jAddroom.setToolTipText("Search for room availability");
+        jPanel9.add(jAddroom);
 
-        jTypepanel.add(jRoompanel);
+        jRemoveroom.setText("Remove");
+        jRemoveroom.setToolTipText("Remove room choice");
+        jRemoveroom.setMaximumSize(new java.awt.Dimension(25, 29));
+        jPanel9.add(jRemoveroom);
 
-        jCustomer.setText("Customer");
-        jCustomerpanel.add(jCustomer);
-        jCustomer.getAccessibleContext().setAccessibleName("Customer");
+        jPanel6.add(jPanel9);
 
-        jaddcustomer.setText("+");
-        jCustomerpanel.add(jaddcustomer);
+        jTypepanel.add(jPanel6);
 
-        jTypepanel.add(jCustomerpanel);
+        jPanel12.setMaximumSize(new java.awt.Dimension(32767, 12));
+        jPanel12.setMinimumSize(new java.awt.Dimension(100, 12));
+        jPanel12.setPreferredSize(new java.awt.Dimension(150, 12));
+
+        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
+        jPanel12.setLayout(jPanel12Layout);
+        jPanel12Layout.setHorizontalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 165, Short.MAX_VALUE)
+        );
+        jPanel12Layout.setVerticalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 12, Short.MAX_VALUE)
+        );
+
+        jTypepanel.add(jPanel12);
+
+        jPanel11.setMaximumSize(new java.awt.Dimension(32767, 50));
+
+        jCustomerbutton.setText("Customer");
+        jCustomerbutton.setToolTipText("Select customer");
+
+        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
+        jPanel11.setLayout(jPanel11Layout);
+        jPanel11Layout.setHorizontalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
+                .addContainerGap(47, Short.MAX_VALUE)
+                .addComponent(jCustomerbutton)
+                .addGap(37, 37, 37))
+        );
+        jPanel11Layout.setVerticalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jCustomerbutton)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jTypepanel.add(jPanel11);
+
+        jPanel3.setMaximumSize(new java.awt.Dimension(32767, 100));
+        jPanel3.setPreferredSize(new java.awt.Dimension(108, 50));
+
+        jCustomertext.setBackground(new java.awt.Color(251, 250, 248));
+        jCustomertext.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jCustomertext.setText("Sir Syleopoulos");
+        jCustomertext.setBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.white, java.awt.Color.lightGray));
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jCustomertext, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jCustomertext, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29))
+        );
+
+        jTypepanel.add(jPanel3);
 
         jBookingpanel.add(jTypepanel, java.awt.BorderLayout.EAST);
 
-        jTabbedPane2.addTab("Reservtion", jBookingpanel);
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Reservation");
+        jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jLabel1.setMaximumSize(new java.awt.Dimension(57, 10));
+        jLabel1.setMinimumSize(new java.awt.Dimension(10, 10));
+        jLabel1.setPreferredSize(new java.awt.Dimension(57, 50));
+        jBookingpanel.add(jLabel1, java.awt.BorderLayout.PAGE_START);
+
+        jTabbedPane2.addTab("Reservation", jBookingpanel);
         jTabbedPane2.addTab("Edit", jTabbedPane3);
         jTabbedPane2.addTab("Check in/out", jTabbedPane4);
 
@@ -150,11 +303,11 @@ public class mainwindow extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 417, Short.MAX_VALUE)
+            .addComponent(jTabbedPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 560, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 439, Short.MAX_VALUE)
+            .addComponent(jTabbedPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 409, Short.MAX_VALUE)
         );
 
         pack();
@@ -206,18 +359,25 @@ public class mainwindow extends javax.swing.JFrame {
     private javax.swing.JButton jClearbutton;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JButton jConfirm;
-    private javax.swing.JLabel jCustomer;
-    private javax.swing.JPanel jCustomerpanel;
+    private javax.swing.JButton jCustomerbutton;
+    private javax.swing.JLabel jCustomertext;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JButton jRemoveroom;
-    private javax.swing.JPanel jRoompanel;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTabbedPane jTabbedPane3;
     private javax.swing.JTabbedPane jTabbedPane4;
     private javax.swing.JPanel jTypepanel;
-    private javax.swing.JButton jaddcustomer;
     // End of variables declaration//GEN-END:variables
 }
