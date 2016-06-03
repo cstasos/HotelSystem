@@ -5,10 +5,15 @@
  */
 package UI.Desktop;
 
+import java.awt.Color;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.Date;
+import javax.swing.BorderFactory;
+import javax.swing.DefaultListModel;
 import javax.swing.JFormattedTextField;
+import javax.swing.JOptionPane;
 import javax.swing.text.DateFormatter;
 import javax.swing.text.DefaultFormatterFactory;
 
@@ -22,6 +27,9 @@ public class mainwindow extends javax.swing.JFrame {
     private DateFormat editFormat;
     private DateFormatter editFormatter;
     private DefaultFormatterFactory factory;
+    
+    private DefaultListModel listModel;
+
 
     /**
      * Creates new form mainwindow
@@ -37,7 +45,7 @@ public class mainwindow extends javax.swing.JFrame {
         editFormat = new SimpleDateFormat("dd/MM/yyyy");
         editFormatter = new DateFormatter(editFormat);
         factory = new DefaultFormatterFactory(displayFormatter, displayFormatter, editFormatter);
-        
+        listModel = new DefaultListModel();
     }
 
     /**
@@ -61,7 +69,7 @@ public class mainwindow extends javax.swing.JFrame {
         jConfirm = new javax.swing.JButton();
         jTypepanel = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jType = new javax.swing.JComboBox<>();
         jPanel4 = new javax.swing.JPanel();
         jCheckintext = new JFormattedTextField(factory, new Date());
         jPanel5 = new javax.swing.JPanel();
@@ -69,7 +77,7 @@ public class mainwindow extends javax.swing.JFrame {
         jPanel6 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jPanel9 = new javax.swing.JPanel();
-        jAddroom = new javax.swing.JButton();
+        jSearchroom = new javax.swing.JButton();
         jRemoveroom = new javax.swing.JButton();
         jPanel12 = new javax.swing.JPanel();
         jPanel11 = new javax.swing.JPanel();
@@ -103,6 +111,11 @@ public class mainwindow extends javax.swing.JFrame {
         jClearbutton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jClearbutton.setMaximumSize(new java.awt.Dimension(49, 50));
         jClearbutton.setName(""); // NOI18N
+        jClearbutton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jClearbuttonActionPerformed(evt);
+            }
+        });
         jButtonpanel.add(jClearbutton);
 
         jPanel1.setMaximumSize(new java.awt.Dimension(20, 20));
@@ -150,10 +163,10 @@ public class mainwindow extends javax.swing.JFrame {
 
         jTypepanel.add(jPanel2);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Single", "Dual", "Triple", "Quando", "Suite", "SuperLux" }));
-        jComboBox1.setToolTipText("Select the type of room");
-        jComboBox1.setMaximumSize(new java.awt.Dimension(115, 27));
-        jTypepanel.add(jComboBox1);
+        jType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Single", "Dual", "Triple", "Quando", "Suite", "SuperLux" }));
+        jType.setToolTipText("Select the type of room");
+        jType.setMaximumSize(new java.awt.Dimension(115, 27));
+        jTypepanel.add(jType);
 
         jPanel4.setMaximumSize(new java.awt.Dimension(32767, 12));
         jPanel4.setMinimumSize(new java.awt.Dimension(100, 12));
@@ -207,13 +220,23 @@ public class mainwindow extends javax.swing.JFrame {
         jLabel3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jPanel6.add(jLabel3);
 
-        jAddroom.setText("Search");
-        jAddroom.setToolTipText("Search for room availability");
-        jPanel9.add(jAddroom);
+        jSearchroom.setText("Search");
+        jSearchroom.setToolTipText("Search for room availability");
+        jSearchroom.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jSearchroomActionPerformed(evt);
+            }
+        });
+        jPanel9.add(jSearchroom);
 
         jRemoveroom.setText("Remove");
         jRemoveroom.setToolTipText("Remove room choice");
         jRemoveroom.setMaximumSize(new java.awt.Dimension(25, 29));
+        jRemoveroom.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRemoveroomActionPerformed(evt);
+            }
+        });
         jPanel9.add(jRemoveroom);
 
         jPanel6.add(jPanel9);
@@ -241,6 +264,11 @@ public class mainwindow extends javax.swing.JFrame {
 
         jCustomerbutton.setText("Customer");
         jCustomerbutton.setToolTipText("Select customer");
+        jCustomerbutton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCustomerbuttonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
@@ -266,8 +294,8 @@ public class mainwindow extends javax.swing.JFrame {
 
         jCustomertext.setBackground(new java.awt.Color(251, 250, 248));
         jCustomertext.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jCustomertext.setText("Sir Syleopoulos");
-        jCustomertext.setBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.white, java.awt.Color.lightGray));
+        jCustomertext.setText("no Customer");
+        jCustomertext.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -287,6 +315,7 @@ public class mainwindow extends javax.swing.JFrame {
 
         jBookingpanel.add(jTypepanel, java.awt.BorderLayout.EAST);
 
+        jLabel1.setFont(new java.awt.Font("Ubuntu", 0, 22)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Reservation");
         jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -313,6 +342,58 @@ public class mainwindow extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jSearchroomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSearchroomActionPerformed
+        // Search
+        AvailableRooms ar = new AvailableRooms(this);
+        ar.setVisible(true);
+    }//GEN-LAST:event_jSearchroomActionPerformed
+
+    private void jClearbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jClearbuttonActionPerformed
+        // Clear
+        listModel.clear();
+        jType.setSelectedIndex(0);
+        jCheckintext.setValue(Date.from(Instant.now()));
+        jCheckouttext.setValue(Date.from(Instant.now()));
+        jCustomertext.setText("no Customer");
+        jCustomertext.setBorder(BorderFactory.createLineBorder(Color.red));
+    }//GEN-LAST:event_jClearbuttonActionPerformed
+
+    private void jRemoveroomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRemoveroomActionPerformed
+        // remove
+        if(!this.jBookinglist.isSelectionEmpty()){
+           this.listModel.removeElementAt(jBookinglist.getSelectedIndex());
+        }else 
+            JOptionPane.showMessageDialog(null, "There is nothing to remove", "Alert", JOptionPane.ERROR_MESSAGE);
+    }//GEN-LAST:event_jRemoveroomActionPerformed
+
+    private void jCustomerbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCustomerbuttonActionPerformed
+        // ADD Customer
+        Customerlogin cl = new Customerlogin();
+        cl.setVisible(true);
+    }//GEN-LAST:event_jCustomerbuttonActionPerformed
+
+    
+    protected void addBookingList(String dataline){
+        String[] st = new String[2];
+        st[0] = dataline;
+        this.listModel.addElement(dataline);
+        this.jBookinglist.setModel(listModel);
+    }
+    
+    public String getComboBoxType(){
+        return (String) this.jType.getSelectedItem();
+    }
+    
+    public String getCheckDate(){
+        int x = 5; // 5 meres
+        Date d1 = (Date)this.jCheckintext.getValue();
+        String s1 = editFormat.format(new Date(d1.getTime()+x*24*60*60*1000));
+        Date d2 = (Date)this.jCheckouttext.getValue();
+        String s2 = editFormat.format(new Date(d2.getTime()+x*24*60*60*1000));
+        return s1 +" --- "+ s2;
+    }
+            
+            
     /**
      * @param args the command line arguments
      */
@@ -349,7 +430,6 @@ public class mainwindow extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jAddroom;
     private javax.swing.JList<String> jBookinglist;
     private javax.swing.JPanel jBookingpanel;
     private javax.swing.JPanel jBookpanel;
@@ -357,7 +437,6 @@ public class mainwindow extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField jCheckintext;
     private javax.swing.JFormattedTextField jCheckouttext;
     private javax.swing.JButton jClearbutton;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JButton jConfirm;
     private javax.swing.JButton jCustomerbutton;
     private javax.swing.JLabel jCustomertext;
@@ -374,10 +453,12 @@ public class mainwindow extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JButton jRemoveroom;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton jSearchroom;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JTabbedPane jTabbedPane3;
     private javax.swing.JTabbedPane jTabbedPane4;
+    private javax.swing.JComboBox<String> jType;
     private javax.swing.JPanel jTypepanel;
     // End of variables declaration//GEN-END:variables
 }
