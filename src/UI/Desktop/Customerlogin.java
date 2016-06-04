@@ -90,7 +90,6 @@ public class Customerlogin extends javax.swing.JFrame {
         jCancel = new javax.swing.JButton();
         jPanel16 = new javax.swing.JPanel();
         jOK = new javax.swing.JButton();
-        jSeparator1 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -364,9 +363,6 @@ public class Customerlogin extends javax.swing.JFrame {
 
         jPanel1.add(jPanel3, java.awt.BorderLayout.CENTER);
 
-        jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jPanel1.add(jSeparator1, java.awt.BorderLayout.PAGE_END);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -485,7 +481,6 @@ public class Customerlogin extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jSearch;
     private javax.swing.JTextField jSearchfield;
-    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JRadioButton jSignup;
     private javax.swing.JRadioButton jlogin;
     // End of variables declaration//GEN-END:variables
