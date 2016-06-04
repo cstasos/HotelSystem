@@ -378,6 +378,10 @@ public class mainwindow extends javax.swing.JFrame {
         cl.setVisible(true);
     }//GEN-LAST:event_jCustomerbuttonActionPerformed
 
+    protected void addCustomername(String data){
+        this.jCustomertext.setText(data);
+        this.jCustomertext.setBorder(null);
+    }
     private void jConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jConfirmActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jConfirmActionPerformed
