@@ -8,7 +8,7 @@ package UI.Desktop;
 import java.awt.Color;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.Instant;
+//import java.time.Instant;
 import java.util.Date;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
@@ -29,6 +29,7 @@ public class mainwindow extends javax.swing.JFrame {
     private DefaultFormatterFactory factory;
     
     private DefaultListModel listModel;
+    private static final int days = 5;
 
 
     /**
@@ -187,7 +188,7 @@ public class mainwindow extends javax.swing.JFrame {
 
         jCheckintext.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jCheckintext.setToolTipText("Check in");
-        jCheckintext.setMaximumSize(new java.awt.Dimension(115, 40));
+        jCheckintext.setMaximumSize(new java.awt.Dimension(150, 40));
         jTypepanel.add(jCheckintext);
 
         jPanel5.setMaximumSize(new java.awt.Dimension(32767, 7));
@@ -209,7 +210,7 @@ public class mainwindow extends javax.swing.JFrame {
 
         jCheckouttext.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jCheckouttext.setToolTipText("Check out");
-        jCheckouttext.setMaximumSize(new java.awt.Dimension(115, 40));
+        jCheckouttext.setMaximumSize(new java.awt.Dimension(150, 40));
         jTypepanel.add(jCheckouttext);
 
         jPanel6.setLayout(new java.awt.GridLayout(2, 0));
@@ -352,8 +353,8 @@ public class mainwindow extends javax.swing.JFrame {
         // Clear
         listModel.clear();
         jType.setSelectedIndex(0);
-        jCheckintext.setValue(Date.from(Instant.now()));
-        jCheckouttext.setValue(Date.from(Instant.now()));
+        //jCheckintext.setValue(Date.from(Instant.now()));
+        //jCheckouttext.setValue(Date.from(Instant.now()));
         jCustomertext.setText("no Customer");
         jCustomertext.setBorder(BorderFactory.createLineBorder(Color.red));
     }//GEN-LAST:event_jClearbuttonActionPerformed
@@ -368,29 +369,40 @@ public class mainwindow extends javax.swing.JFrame {
 
     private void jCustomerbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCustomerbuttonActionPerformed
         // ADD Customer
-        Customerlogin cl = new Customerlogin();
+        Customerlogin cl = new Customerlogin(this);
         cl.setVisible(true);
     }//GEN-LAST:event_jCustomerbuttonActionPerformed
 
+    protected void addCustomername(String data){
+        this.jCustomertext.setText(data);
+        this.jCustomertext.setBorder(null);
+    }
     
     protected void addBookingList(String dataline){
-        String[] st = new String[2];
-        st[0] = dataline;
         this.listModel.addElement(dataline);
         this.jBookinglist.setModel(listModel);
     }
     
-    public String getComboBoxType(){
+    protected String getComboBoxType(){
         return (String) this.jType.getSelectedItem();
     }
     
-    public String getCheckDate(){
-        int x = 5; // 5 meres
+    protected void AlternativeResarvation(){
+        this.listModel.clear();
+        this.jCheckintext.setValue(new Date(this.getAlternativeCheckin()));
+        this.jCheckouttext.setValue(new Date(this.getAlternativeCheckout()));  
+    }
+    
+    protected String getAlternativeCheckin(){
         Date d1 = (Date)this.jCheckintext.getValue();
-        String s1 = editFormat.format(new Date(d1.getTime()+x*24*60*60*1000));
+        String s1 = editFormat.format(new Date(d1.getTime()+days*24*60*60*1000));
+        return s1;
+    }
+    
+    protected String getAlternativeCheckout(){
         Date d2 = (Date)this.jCheckouttext.getValue();
-        String s2 = editFormat.format(new Date(d2.getTime()+x*24*60*60*1000));
-        return s1 +" --- "+ s2;
+        String s2 = editFormat.format(new Date(d2.getTime()+days*24*60*60*1000));
+        return s2;
     }
             
             

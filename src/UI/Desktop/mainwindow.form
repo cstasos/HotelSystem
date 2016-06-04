@@ -244,7 +244,7 @@
                     <Property name="horizontalAlignment" type="int" value="0"/>
                     <Property name="toolTipText" type="java.lang.String" value="Check in"/>
                     <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                      <Dimension value="[115, 40]"/>
+                      <Dimension value="[150, 40]"/>
                     </Property>
                   </Properties>
                   <AuxValues>
@@ -283,7 +283,7 @@
                     <Property name="horizontalAlignment" type="int" value="0"/>
                     <Property name="toolTipText" type="java.lang.String" value="Check out"/>
                     <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                      <Dimension value="[115, 40]"/>
+                      <Dimension value="[150, 40]"/>
                     </Property>
                   </Properties>
                   <AuxValues>
