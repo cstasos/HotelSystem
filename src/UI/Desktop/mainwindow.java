@@ -62,14 +62,14 @@ public class mainwindow extends javax.swing.JFrame {
         jBookingpanel = new javax.swing.JPanel();
         jBookpanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jBookinglist = new javax.swing.JList<>();
+        jBookinglist = new javax.swing.JList<String>();
         jButtonpanel = new javax.swing.JPanel();
         jClearbutton = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jConfirm = new javax.swing.JButton();
         jTypepanel = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jType = new javax.swing.JComboBox<>();
+        jType = new javax.swing.JComboBox<String>();
         jPanel4 = new javax.swing.JPanel();
         jCheckintext = new JFormattedTextField(factory, new Date());
         jPanel5 = new javax.swing.JPanel();
@@ -138,6 +138,11 @@ public class mainwindow extends javax.swing.JFrame {
         jConfirm.setText("Confirm");
         jConfirm.setToolTipText("Confirm the reservation");
         jConfirm.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jConfirm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jConfirmActionPerformed(evt);
+            }
+        });
         jButtonpanel.add(jConfirm);
 
         jBookpanel.add(jButtonpanel);
@@ -163,7 +168,7 @@ public class mainwindow extends javax.swing.JFrame {
 
         jTypepanel.add(jPanel2);
 
-        jType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Single", "Dual", "Triple", "Quando", "Suite", "SuperLux" }));
+        jType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Single", "Dual", "Triple", "Quando", "Suite", "SuperLux" }));
         jType.setToolTipText("Select the type of room");
         jType.setMaximumSize(new java.awt.Dimension(115, 27));
         jTypepanel.add(jType);
@@ -371,6 +376,10 @@ public class mainwindow extends javax.swing.JFrame {
         Customerlogin cl = new Customerlogin();
         cl.setVisible(true);
     }//GEN-LAST:event_jCustomerbuttonActionPerformed
+
+    private void jConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jConfirmActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jConfirmActionPerformed
 
     
     protected void addBookingList(String dataline){

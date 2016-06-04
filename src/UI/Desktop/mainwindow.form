@@ -150,6 +150,9 @@
                         <Property name="toolTipText" type="java.lang.String" value="Confirm the reservation"/>
                         <Property name="horizontalTextPosition" type="int" value="0"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jConfirmActionPerformed"/>
+                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>
