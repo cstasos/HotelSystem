@@ -387,10 +387,7 @@ public class mainwindow extends javax.swing.JFrame {
     }//GEN-LAST:event_jConfirmActionPerformed
 
 
-    protected void addCustomername(String data){
-        this.jCustomertext.setText(data);
-        this.jCustomertext.setBorder(null);
-    }
+    
 
     
     protected void addBookingList(String dataline){
