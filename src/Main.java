@@ -18,7 +18,7 @@ public class Main {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void mymain(String[] args) {
         // TODO code application logic here
         //myDate date = null;
         String date1 = new String("11/02/2017");
