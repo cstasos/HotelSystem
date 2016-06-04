@@ -29,7 +29,7 @@ public class AvailableRooms extends javax.swing.JFrame {
     private void myInit(){
         this.jLabel1.setText("Type of room: "+this.myfather.getComboBoxType());
         this.jLabel3.setText("NOT type of room: "+this.myfather.getComboBoxType());
-        this.jLabel4.setText("Type of room: "+this.myfather.getComboBoxType()+" "+this.myfather.getCheckDate());
+        this.jLabel4.setText("Type of room: "+this.myfather.getComboBoxType()+" "+this.myfather.getAlternativeCheckin()+"----"+this.myfather.getAlternativeCheckout());
     }
 
     /**
@@ -217,11 +217,12 @@ public class AvailableRooms extends javax.swing.JFrame {
             st = new String(jList2.getSelectedValue());
         }else if(jList3.getSelectedValue()!=null){
             st = new String(jList3.getSelectedValue());
+            this.myfather.AlternativeResarvation();
         }
         
         if(st!=null){
             myfather.addBookingList(st);
-            this.setVisible(false);
+            this.dispose();
         }else 
             JOptionPane.showMessageDialog(null, "You have to select a room first", "Alert", JOptionPane.ERROR_MESSAGE); 
     }//GEN-LAST:event_jAddroomActionPerformed
@@ -231,7 +232,7 @@ public class AvailableRooms extends javax.swing.JFrame {
         jList1.clearSelection();
         jList2.clearSelection();
         jList3.clearSelection();
-        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_jCancelActionPerformed
 
     private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
