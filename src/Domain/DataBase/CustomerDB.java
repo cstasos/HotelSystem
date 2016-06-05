@@ -6,17 +6,19 @@
 package Domain.DataBase;
 
 import Domain.Classies.Customer;
-import Domain.Classies.Customer;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author sakis
  */
-public class CustomerDB {
+public class CustomerDB {        
+    
     
     public static Customer getCustomer(String name){
-        //sql code return customer
-        //String fname = null, lname = null, phone = null, AT = null;
+        //sql code
         String fname = "Sakis", lname = "Syle", phone = "6946698143", AT = "AT-1212121";
         return new Customer(fname, lname, phone, AT);
     }
