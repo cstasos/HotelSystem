@@ -613,6 +613,18 @@ public class mainwindow extends javax.swing.JFrame {
         return this.jType.getSelectedIndex();
     }
     
+    protected String getReservationChekin(){
+        Date d = (Date)this.jCheckintext.getValue();
+        String s = editFormat.format(d);
+        return s;
+    }
+    
+    protected String getReservationChekout(){
+        Date d = (Date)this.jCheckintext.getValue();
+        String s = editFormat.format(d);
+        return s;
+    }
+    
     protected void AlternativeResarvation(){
         Date d1;
         this.listModel.clear();

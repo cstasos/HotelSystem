@@ -7,6 +7,11 @@ package Domain.DataBase;
 
 
 import Domain.Classies.Room;
+import Factory.RoomFactory;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,18 +21,76 @@ import java.util.List;
  */
 public class RoomDB {
     
-    public static List<Room> getSameTypeRoom(String type, String date1, String date2){
-        System.out.print("MPIKA");
-        List<Room> rooms = new ArrayList();
-        //SQL CODE return Rooms
-        System.out.println("TASOS! "+rooms);
-        return rooms;
+     public static List<Room> getSameTypeRoom(int type, String date1, String date2){
+        Connection con = null;
+        String url = "jdbc:mysql://localhost:3306/Hoteldb";
+        try {
+            con = DriverManager.getConnection(url, "root", "tasos");
+                     
+            String query = "SELECT * FROM room_reservation where type = ? ";            
+            PreparedStatement pst = null;
+            ResultSet rs = null;
+            
+            pst = con.prepareStatement(query);
+                    
+            pst.setInt(1, type);
+            
+            rs=pst.executeQuery();
+            
+            ArrayList<Room> list = new ArrayList<Room>();
+            
+            while (rs.next()) {
+                
+                Room room = RoomFactory.newRoom(rs.getInt(1), rs.getInt(2), rs.getInt(3));
+                
+                list.add(room);
+                
+            }
+            
+            pst.close();
+            return list;
+            
+        } catch (SQLException ex) {
+            System.err.println(ex.toString());
+        }
+        
+        return new ArrayList<Room>();
     }
     
-    public static List<Room> getAllTypeRoom(String type, String date1, String date2){
-        //this.rooms = new ArrayList();
-        //SQL CODE return Rooms
-        //return rooms;
-        return null;
+    
+    public static List<Room> getRoomByResId(int resId){
+        Connection con = null;
+        String url = "jdbc:mysql://localhost:3306/Hoteldb";
+        try {
+            con = DriverManager.getConnection(url, "root", "");
+                     
+            String query = "SELECT Room.id, Room.type, Room.price FROM Room INNER JOIN Reservation_Room on Room.id=Reservation_Room.room_id where Reservation_Room.reservation_id = ? ";            
+            PreparedStatement pst = null;
+            ResultSet rs = null;
+            
+            pst = con.prepareStatement(query);
+                    
+            pst.setInt(1, resId);
+            
+            rs=pst.executeQuery();
+            
+            ArrayList<Room> list = new ArrayList<Room>();
+            
+            while (rs.next()) {
+                
+                Room room = RoomFactory.newRoom(rs.getInt(1), rs.getInt(2), rs.getInt(3));
+                
+                list.add(room);
+                
+            }
+            
+            pst.close();
+            return list;
+            
+        } catch (SQLException ex) {
+            System.err.println(ex.toString());
+        }
+        
+        return new ArrayList<Room>();
     }
 }

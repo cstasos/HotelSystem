@@ -5,6 +5,11 @@
  */
 package UI.Desktop;
 
+import Controller.DBHandlerGetter;
+import Domain.Classies.Room;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
 
@@ -15,6 +20,9 @@ import javax.swing.JOptionPane;
  */
 public class AvailableRooms extends javax.swing.JFrame {
     private mainwindow myfather;
+    private DefaultListModel listModel1;
+    private DefaultListModel listModel2;
+    private DefaultListModel listModel3;
     
 
     /**
@@ -30,6 +38,14 @@ public class AvailableRooms extends javax.swing.JFrame {
         this.jLabel1.setText("Type of room: "+this.myfather.getComboBoxType());
         this.jLabel3.setText("NOT type of room: "+this.myfather.getComboBoxType());
         this.jLabel4.setText("Type of room: "+this.myfather.getComboBoxType()+" "+this.myfather.getAlternativeCheckin()+"----"+this.myfather.getAlternativeCheckout());
+        
+        // gemisma twn listwn
+        List<Room> r = new ArrayList();
+        r = DBHandlerGetter.getAllTypeRoom(this.myfather.getComboBoxType(), this.myfather.getReservationChekin(), this.myfather.getReservationChekin());
+        System.out.println(r);
+        
+        listModel1.addElement(r.toArray());
+        this.jList1.setModel(listModel1);
     }
 
     /**

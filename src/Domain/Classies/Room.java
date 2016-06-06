@@ -32,6 +32,10 @@ public abstract class Room {
     public abstract String Benefits();
     
     public abstract int getType();
+    
+    public int getID(){
+        return this.ID;
+    }
 
     @Override
     public String toString() {
