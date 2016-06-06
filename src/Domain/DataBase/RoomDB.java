@@ -33,22 +33,19 @@ public class RoomDB {
             ResultSet rs = null;
             
             pst = con.prepareStatement(query);
-                    
+            System.out.println(type);        
             pst.setInt(1, type);
-            
             rs=pst.executeQuery();
             
             List<Room> list = new ArrayList<Room>();
             
             while (rs.next()) {
-                
-                Room room = RoomFactory.newRoom(rs.getInt(1), rs.getInt(2), rs.getInt(3));
-                
-                list.add(room);
-                
+                Room room = RoomFactory.newRoom(rs.getInt(1), rs.getInt(2), rs.getInt(3));                
+                list.add(room);                
             }
             
             pst.close();
+            System.out.println(list);
             return list;
             
         } catch (SQLException ex) {

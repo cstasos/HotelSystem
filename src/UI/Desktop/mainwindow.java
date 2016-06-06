@@ -5,7 +5,9 @@
  */
 package UI.Desktop;
 
+import Controller.DBHandlerGetter;
 import Domain.Classies.Booking;
+import Domain.Classies.Room;
 import java.awt.Color;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -31,9 +33,15 @@ public class mainwindow extends javax.swing.JFrame {
     private DateFormatter editFormatter;
     private DefaultFormatterFactory factory;
     
+    private List<Room> rooms = new ArrayList();
     private List<Booking> books;
     private DefaultListModel listModel;
+    private DefaultListModel roomlistModel;
+    private DefaultListModel roomlistModel2;
     private static final int days = 5;
+    
+    private List<Room> r1;
+    private List<Room> r2;
 
 
     /**
@@ -51,6 +59,8 @@ public class mainwindow extends javax.swing.JFrame {
         editFormatter = new DateFormatter(editFormat);
         factory = new DefaultFormatterFactory(displayFormatter, displayFormatter, editFormatter);
         listModel = new DefaultListModel();
+        roomlistModel = new DefaultListModel();
+        roomlistModel2 = new DefaultListModel();
     }
 
     /**
@@ -535,8 +545,47 @@ public class mainwindow extends javax.swing.JFrame {
 
     private void jSearchroomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSearchroomActionPerformed
         // Search
-        AvailableRooms ar = new AvailableRooms(this);
-        ar.setVisible(true);
+        AvailableRooms ar = null;
+        int option=0;
+        //r1 = new ArrayList();
+        //r2 = new ArrayList();
+        
+        r1 = DBHandlerGetter.getSameTypeRoom(this.getComboBoxintType(), this.getReservationChekin(), this.getReservationChekout());
+        if(!r1.isEmpty()){
+            roomlistModel.clear();
+            for(Room a : r1)
+                roomlistModel.addElement(a.toString());
+             ar = new AvailableRooms(this);
+            ar.setVisible(true);
+        }else{
+            option =JOptionPane.showConfirmDialog(null,"None "+ this.getComboBoxType()+ " rooms are available for your dates."
+                    + "\nDo you like to see alternative suggestions?", "Alert", JOptionPane.YES_NO_OPTION);
+            if(option == JOptionPane.YES_OPTION){
+                r1 = DBHandlerGetter.getAllTypeRoom(this.getComboBoxintType(), this.getReservationChekin(), this.getReservationChekout());
+                if(r1 != null){
+                    roomlistModel.clear();
+                    for(Room a : r1)
+                        roomlistModel.addElement(a.toString());
+                    ar = new AvailableRooms(this);
+                    ar.setVisible(true);
+                }
+            }
+        }
+        
+        if(option == JOptionPane.YES_OPTION){
+            r2 = DBHandlerGetter.getSameTypeRoom(this.getComboBoxintType(), this.getAlternativeCheckin(), this.getAlternativeCheckout());
+            if(!r2.isEmpty()){
+                roomlistModel2.clear();
+                for(Room a : r2)
+                    roomlistModel2.addElement(a.toString());
+                if(ar == null){
+                    ar = new AvailableRooms(this);
+                    ar.setVisible(true);
+                }
+            }else{
+                JOptionPane.showMessageDialog(null, "None rooms are available for your dates.", "Alert", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }//GEN-LAST:event_jSearchroomActionPerformed
 
     private void jClearbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jClearbuttonActionPerformed
@@ -552,7 +601,8 @@ public class mainwindow extends javax.swing.JFrame {
     private void jRemoveroomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRemoveroomActionPerformed
         // remove
         if(!this.jBookinglist.isSelectionEmpty()){
-           this.listModel.removeElementAt(jBookinglist.getSelectedIndex());
+            rooms.remove(jBookinglist.getSelectedIndex());
+           this.listModel.removeElementAt(jBookinglist.getSelectedIndex());           
         }else 
             JOptionPane.showMessageDialog(null, "There is nothing to remove", "Alert", JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_jRemoveroomActionPerformed
@@ -600,8 +650,13 @@ public class mainwindow extends javax.swing.JFrame {
         return books.get(this.jmodifyBooklist.getSelectedIndex());
     }
     
-    protected void addBookingList(String dataline){
-        this.listModel.addElement(dataline);
+    protected void addBookingList(String dataline, int index){
+        //this.listModel.addElement(dataline);
+        rooms.add(r1.get(index));
+        listModel.clear();
+        for(Room a : rooms)
+            listModel.addElement(a);
+        
         this.jBookinglist.setModel(listModel);
     }
     
@@ -610,7 +665,7 @@ public class mainwindow extends javax.swing.JFrame {
     }
     
     public int getComboBoxintType(){
-        return this.jType.getSelectedIndex();
+        return this.jType.getSelectedIndex()+1;
     }
     
     protected String getReservationChekin(){
@@ -628,6 +683,7 @@ public class mainwindow extends javax.swing.JFrame {
     protected void AlternativeResarvation(){
         Date d1;
         this.listModel.clear();
+        this.rooms.clear();
         d1 = (Date)this.jCheckintext.getValue();
         d1.setTime(d1.getTime()+days*24*60*60*1000);
         this.jCheckintext.setValue(d1);
@@ -646,6 +702,14 @@ public class mainwindow extends javax.swing.JFrame {
         Date d2 = (Date)this.jCheckouttext.getValue();
         String s2 = editFormat.format(new Date(d2.getTime()+days*24*60*60*1000));
         return s2;
+    }
+    
+    protected DefaultListModel getroomlistmodel(){
+        return roomlistModel;
+    }
+    
+    protected DefaultListModel getroomlistmodel2(){
+        return roomlistModel2;
     }
             
             

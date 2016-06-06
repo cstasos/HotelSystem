@@ -5,8 +5,12 @@
  */
 package UI.Desktop;
 
+import Controller.DBHandlerGetter;
+import Domain.Classies.Customer;
 import java.awt.Color;
+import java.util.List;
 import javax.swing.BorderFactory;
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
 /**
@@ -15,6 +19,7 @@ import javax.swing.JOptionPane;
  */
 public class Customerlogin extends javax.swing.JFrame {
     private mainwindow myfather;
+    private DefaultListModel customerlistModel;
 
     /**
      * Creates new form Customerlogin
@@ -207,12 +212,12 @@ public class Customerlogin extends javax.swing.JFrame {
         jSearchfield.setText("Search Customer");
 
         jSearch.setText("Search");
-
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Person 2", "Syleopoulos Anastasios Male AT-123456 6946698143", "Person 3" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+        jSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jSearchActionPerformed(evt);
+            }
         });
+
         jList1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jList1.setVisibleRowCount(6);
         jScrollPane1.setViewportView(jList1);
@@ -450,6 +455,20 @@ public class Customerlogin extends javax.swing.JFrame {
         this.jIDfield.setBorder(null);
         
     }//GEN-LAST:event_jClearActionPerformed
+
+    private void jSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSearchActionPerformed
+        // Search Customer
+        List<CustomerID> customersid;
+        customersid = DBHandlerGetter.getCustomer(this.jSearchfield.getText());
+        if(customersid != null){
+            customerlistModel = new DefaultListModel();
+            for(CustomerID c: customersid)
+                customerlistModel.addElement(c);
+            this.jList1.setModel(customerlistModel);
+        }else{
+            JOptionPane.showMessageDialog(null, "Can't find customer "+this.jSearchfield.getText()+"!", "Alert", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jSearchActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
