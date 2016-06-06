@@ -27,14 +27,6 @@ public class myDate {
     private String dateformat = "dd/MM/yyyy";
     private SimpleDateFormat format = new SimpleDateFormat(dateformat);
     
-    public myDate(){
-        this.year = Calendar.getInstance().getTime().getYear();
-        this.month = Calendar.getInstance().getTime().getMonth();
-        this.day = Calendar.getInstance().getTime().getDate();
-        this.dname = new String(this.day+"/"+this.month+"/"+this.year);
-        this.Converter();
-    }
-    
     public myDate(String data){
         String[] token = data.split(slash);
         this.day = Integer.parseInt(token[0]);
@@ -52,7 +44,7 @@ public class myDate {
         }
     }
     
-    private Date getDate(){
+    public Date getDate(){
         return this.date;
     }
     

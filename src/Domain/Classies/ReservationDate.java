@@ -15,16 +15,19 @@ public class ReservationDate {
     private myDate checkin;
     private myDate checkout;
     
-    ReservationDate(){
-        this.checkin = new myDate();
-        this.checkout = new myDate();
-    }
-    
     ReservationDate(String in, String out){
         this.checkin = new myDate(in);
         this.checkout = new myDate(out);
     }
 
+    public Object getCheckinDate() {
+        return checkin.getDate();
+    }
+
+    public Object getCheckoutDate() {
+        return checkout.getDate();
+    }
+    
     @Override
     public String toString() {
         return "ReservationDate{" + "checkin=" + checkin + ", checkout=" + checkout + '}';

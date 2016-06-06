@@ -25,8 +25,12 @@ public class Booking {
         return customer;
     }
 
-    public ReservationDate getDate() {
-        return date;
+    public Object getCheckinDate() {
+        return date.getCheckinDate();
+    }
+    
+    public Object getCheckoutDate() {
+        return date.getCheckoutDate();
     }
 
     public void setBookid(String bookid) {
