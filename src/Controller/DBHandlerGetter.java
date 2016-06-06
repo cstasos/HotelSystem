@@ -18,13 +18,13 @@ import java.util.List;
  */
 public class DBHandlerGetter {   
     
-    public static List<Room> getSameTypeRoom(String type, String date1, String date2){
+    public static List<Room> getSameTypeRoom(int type, String date1, String date2){
         List<Room> rooms;
         rooms = RoomDB.getSameTypeRoom(type, date1, date2);
         return rooms;
     }
     
-    public static List<Room> getAllTypeRoom(String type, String date1, String date2){
+    public static List<Room> getAllTypeRoom(int type, String date1, String date2){
         List<Room> rooms;
         rooms = RoomDB.getAllTypeRoom(type, date1, date2);
         return rooms;

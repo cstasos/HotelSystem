@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +38,7 @@ public class RoomDB {
             
             rs=pst.executeQuery();
             
-            ArrayList<Room> list = new ArrayList<Room>();
+            List<Room> list = new ArrayList<Room>();
             
             while (rs.next()) {
                 
@@ -54,7 +55,7 @@ public class RoomDB {
             System.err.println(ex.toString());
         }
         
-        return new ArrayList<Room>();
+        return null;
     }
     
     
@@ -74,7 +75,7 @@ public class RoomDB {
             
             rs=pst.executeQuery();
             
-            ArrayList<Room> list = new ArrayList<Room>();
+            List<Room> list = new ArrayList<Room>();
             
             while (rs.next()) {
                 
@@ -91,6 +92,10 @@ public class RoomDB {
             System.err.println(ex.toString());
         }
         
-        return new ArrayList<Room>();
+        return null;
+    }
+
+    public static List<Room> getAllTypeRoom(int type, String date1, String date2) {
+        return null;
     }
 }

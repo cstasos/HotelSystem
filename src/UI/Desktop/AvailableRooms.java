@@ -41,7 +41,7 @@ public class AvailableRooms extends javax.swing.JFrame {
         
         // gemisma twn listwn
         List<Room> r = new ArrayList();
-        r = DBHandlerGetter.getAllTypeRoom(this.myfather.getComboBoxType(), this.myfather.getReservationChekin(), this.myfather.getReservationChekin());
+        r = DBHandlerGetter.getAllTypeRoom(this.myfather.getComboBoxintType(), this.myfather.getReservationChekin(), this.myfather.getReservationChekin());
         System.out.println(r);
         
         listModel1.addElement(r.toArray());
