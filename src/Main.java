@@ -31,13 +31,14 @@ public class Main {
             System.out.println("Den einai anamesa");
         
         // ConfirmButton
-        Booking b = new Booking();
-        b.setBookid(DBHandlerGetter.getnewBookingID());
-        b.setRooms(DBHandlerGetter.getSameTypeRoom("diklino", "15/4/2016", "17/4/2016"));
-        b.setCustomer(DBHandlerGetter.getCustomer("Sakis"));
-        b.setDate("15/3/2016", "17/4/2016");
+       // Booking b = new Booking();
+       // b.setBookid(DBHandlerGetter.getnewBookingID());
+       // b.setRooms(DBHandlerGetter.getSameTypeRoom("diklino", "15/4/2016", "17/4/2016"));
+        //b.setCustomer(DBHandlerGetter.getCustomer("Sakis"));
+        System.out.println("YO"+DBHandlerGetter.getCustomer("Tasos"));
+        //b.setDate("15/3/2016", "17/4/2016");
         
-        System.out.print(b);
+       // System.out.print(b);
     }
     
 }

@@ -51,7 +51,7 @@ public class Booking {
 
     @Override
     public String toString() {
-        return "Booking{" + "bookid=" + bookid + ", rooms=" + rooms + ", customer=" + customer + ", date=" + date.toString() + '}';
+        return "Booking{" + "bookid=" + bookid + ", #rooms=" + rooms.size() + ", customer=" + customer + ", date=" + date.toString() + '}';
     }
 
 }

@@ -54,4 +54,7 @@ public class Hotel_Testing {
             Logger.getLogger(Hotel_Testing.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    
+    System.out.println(DBHandlerGetter.getCustomer("Tasos"));
 }

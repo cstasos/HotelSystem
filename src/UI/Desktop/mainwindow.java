@@ -5,12 +5,14 @@
  */
 package UI.Desktop;
 
+import Domain.Classies.Booking;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 //import java.time.Instant;
 import java.util.Date;
+import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JFormattedTextField;
@@ -29,6 +31,7 @@ public class mainwindow extends javax.swing.JFrame {
     private DateFormatter editFormatter;
     private DefaultFormatterFactory factory;
     
+    private List<Booking> books;
     private DefaultListModel listModel;
     private static final int days = 5;
 
@@ -105,9 +108,10 @@ public class mainwindow extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         jList2 = new javax.swing.JList<>();
         jPanel18 = new javax.swing.JPanel();
-        jmodifyModify = new javax.swing.JButton();
-        jmodifyCancel = new javax.swing.JButton();
+        jPanel20 = new javax.swing.JPanel();
         jmodifyClear = new javax.swing.JButton();
+        jmodifyModify = new javax.swing.JButton();
+        jPanel21 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -452,6 +456,7 @@ public class mainwindow extends javax.swing.JFrame {
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
+        jList2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane3.setViewportView(jList2);
 
         jPanel19.add(jScrollPane3);
@@ -463,11 +468,10 @@ public class mainwindow extends javax.swing.JFrame {
         jPanel7.add(jPanel10, java.awt.BorderLayout.CENTER);
 
         jPanel18.setMaximumSize(new java.awt.Dimension(276, 50));
-        jPanel18.setPreferredSize(new java.awt.Dimension(276, 50));
+        jPanel18.setPreferredSize(new java.awt.Dimension(276, 40));
+        jPanel18.setLayout(new javax.swing.BoxLayout(jPanel18, javax.swing.BoxLayout.LINE_AXIS));
 
-        jmodifyModify.setText("Modify");
-
-        jmodifyCancel.setText("Cancel");
+        jPanel20.setLayout(new java.awt.BorderLayout());
 
         jmodifyClear.setText("Clear");
         jmodifyClear.addActionListener(new java.awt.event.ActionListener() {
@@ -475,29 +479,30 @@ public class mainwindow extends javax.swing.JFrame {
                 jmodifyClearActionPerformed(evt);
             }
         });
+        jPanel20.add(jmodifyClear, java.awt.BorderLayout.WEST);
 
-        javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
-        jPanel18.setLayout(jPanel18Layout);
-        jPanel18Layout.setHorizontalGroup(
-            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel18Layout.createSequentialGroup()
-                .addComponent(jmodifyClear)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 153, Short.MAX_VALUE)
-                .addComponent(jmodifyModify)
-                .addGap(49, 49, 49)
-                .addComponent(jmodifyCancel)
-                .addGap(182, 182, 182))
+        jmodifyModify.setText("Modify");
+        jmodifyModify.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmodifyModifyActionPerformed(evt);
+            }
+        });
+        jPanel20.add(jmodifyModify, java.awt.BorderLayout.EAST);
+
+        jPanel18.add(jPanel20);
+
+        javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
+        jPanel21.setLayout(jPanel21Layout);
+        jPanel21Layout.setHorizontalGroup(
+            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 289, Short.MAX_VALUE)
         );
-        jPanel18Layout.setVerticalGroup(
-            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel18Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jmodifyModify)
-                    .addComponent(jmodifyCancel)
-                    .addComponent(jmodifyClear))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        jPanel21Layout.setVerticalGroup(
+            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 40, Short.MAX_VALUE)
         );
+
+        jPanel18.add(jPanel21);
 
         jPanel7.add(jPanel18, java.awt.BorderLayout.SOUTH);
 
@@ -557,11 +562,7 @@ public class mainwindow extends javax.swing.JFrame {
         Customerlogin cl = new Customerlogin(this);
         cl.setVisible(true);
     }//GEN-LAST:event_jCustomerbuttonActionPerformed
-
-    protected void addCustomername(String data){
-        this.jCustomertext.setText(data);
-        this.jCustomertext.setBorder(null);
-    }
+    
     private void jConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jConfirmActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jConfirmActionPerformed
@@ -573,18 +574,31 @@ public class mainwindow extends javax.swing.JFrame {
 
     private void jEditpanelAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jEditpanelAncestorAdded
         // resize
+        books = new ArrayList();
         this.setSize(800, 400);
     }//GEN-LAST:event_jEditpanelAncestorAdded
 
     private void jmodifyClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmodifyClearActionPerformed
         // Clear the selections
         this.jmodifySearchtext.setText("Search Booking");
+        this.jmodifyBooklist.setSelectedIndex(-1);
+        this.jList2.setSelectedIndex(-1);
         
     }//GEN-LAST:event_jmodifyClearActionPerformed
 
+    private void jmodifyModifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmodifyModifyActionPerformed
+        // selct a booking for modify
+        ModifyBooking mb = new ModifyBooking(this.jmodifyBooklist.getSelectedValue());
+        mb.setVisible(true);
+    }//GEN-LAST:event_jmodifyModifyActionPerformed
 
-    
-
+    protected void addCustomername(String data){
+        this.jCustomertext.setText(data);
+        this.jCustomertext.setBorder(null);
+    }
+    protected Booking getBookingformodify(){
+        return books.get(this.jmodifyBooklist.getSelectedIndex());
+    }
     
     protected void addBookingList(String dataline){
         this.listModel.addElement(dataline);
@@ -595,10 +609,19 @@ public class mainwindow extends javax.swing.JFrame {
         return (String) this.jType.getSelectedItem();
     }
     
+    public int getComboBoxintType(){
+        return this.jType.getSelectedIndex();
+    }
+    
     protected void AlternativeResarvation(){
+        Date d1;
         this.listModel.clear();
-        this.jCheckintext.setValue(new Date(this.getAlternativeCheckin()));
-        this.jCheckouttext.setValue(new Date(this.getAlternativeCheckout()));  
+        d1 = (Date)this.jCheckintext.getValue();
+        d1.setTime(d1.getTime()+days*24*60*60*1000);
+        this.jCheckintext.setValue(d1);
+        d1 = (Date)this.jCheckouttext.getValue();
+        d1.setTime(d1.getTime()+days*24*60*60*1000);
+        this.jCheckouttext.setValue(d1);
     }
     
     protected String getAlternativeCheckin(){
@@ -678,6 +701,8 @@ public class mainwindow extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel18;
     private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel20;
+    private javax.swing.JPanel jPanel21;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
@@ -694,7 +719,6 @@ public class mainwindow extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jType;
     private javax.swing.JPanel jTypepanel;
     private javax.swing.JList<String> jmodifyBooklist;
-    private javax.swing.JButton jmodifyCancel;
     private javax.swing.JButton jmodifyClear;
     private javax.swing.JButton jmodifyModify;
     private javax.swing.JButton jmodifySearch;

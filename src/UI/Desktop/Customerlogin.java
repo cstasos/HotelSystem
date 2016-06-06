@@ -32,13 +32,17 @@ public class Customerlogin extends javax.swing.JFrame {
     private boolean CheckName(){
         this.jLnamefield.setBorder(null);
         this.jFnamefield.setBorder(null);
+        this.jIDfield.setBorder(null);
         if(this.jLnamefield.getText().equals(""))
             this.jLnamefield.setBorder(BorderFactory.createLineBorder(Color.red));
         
         if(this.jFnamefield.getText().equals(""))
             this.jFnamefield.setBorder(BorderFactory.createLineBorder(Color.red));
         
-        if(this.jLnamefield.getText().equals("") || this.jFnamefield.getText().equals(""))
+        if(this.jIDfield.getText().equals(""))
+            this.jIDfield.setBorder(BorderFactory.createLineBorder(Color.red));
+        
+        if(this.jLnamefield.getText().equals("") || this.jFnamefield.getText().equals("") || this.jIDfield.getText().equals(""))
             return false;
         
         return true;
@@ -423,7 +427,7 @@ public class Customerlogin extends javax.swing.JFrame {
                 str = new String(this.jLnamefield.getText()+" "+this.jFnamefield.getText());
                 this.myfather.addCustomername(str);
             }else{
-                JOptionPane.showMessageDialog(null, "Invalid Last Name or First Name", "Alert", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Invalid Last Name or First Name or ID number", "Alert", JOptionPane.ERROR_MESSAGE);
                 joption = 1;
             }
         }
@@ -441,6 +445,9 @@ public class Customerlogin extends javax.swing.JFrame {
         this.jGender.setSelectedIndex(0);
         this.jIDfield.setText("");
         this.jPhonefield.setText("");
+        this.jLnamefield.setBorder(null);
+        this.jFnamefield.setBorder(null);
+        this.jIDfield.setBorder(null);
         
     }//GEN-LAST:event_jClearActionPerformed
 

@@ -30,8 +30,9 @@ public class DBHandlerGetter {
         return rooms;
     }
     
-    public static Customer getCustomer(String name){
-        return new Customer(CustomerDB.getCustomer(name));
+    public static List<Customer> getCustomer(String name){
+        List<Customer> customers =  CustomerDB.getCustomer(name);
+        return customers;
     }
     
     public static String getnewBookingID(){
