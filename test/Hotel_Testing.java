@@ -2,6 +2,7 @@
 import Controller.DBHandlerGetter;
 import Domain.Classies.Booking;
 import TechnicalServices.myDate;
+import UI.Desktop.mainwindow;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -53,8 +54,14 @@ public class Hotel_Testing {
         } catch (SQLException ex) {
             Logger.getLogger(Hotel_Testing.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+    String string = "0/0/4 to 03/45/56";
+    String sub = "to";
+    string = string.replaceAll("\\s+", "");
+    String[] parts = string.split(sub);
+    String part1 = parts[0]; // 004
+    String part2 = parts[1]; // 034556
+    System.out.println(part1+part2);
     }
     
-    
-    System.out.println(DBHandlerGetter.getCustomer("Tasos"));
 }

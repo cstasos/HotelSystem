@@ -6,13 +6,16 @@
 package UI.Desktop;
 
 import Controller.DBHandlerGetter;
+import Controller.DBHandlerSetter;
 import Domain.Classies.Booking;
+import Domain.Classies.Customer;
 import Domain.Classies.Room;
 import java.awt.Color;
+import java.awt.Toolkit;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-//import java.time.Instant;
+import java.time.Instant;
 import java.util.Date;
 import java.util.List;
 import javax.swing.BorderFactory;
@@ -33,8 +36,11 @@ public class mainwindow extends javax.swing.JFrame {
     private DateFormatter editFormatter;
     private DefaultFormatterFactory factory;
     
+    private Customer customer;
     private List<Room> rooms = new ArrayList();
     private List<Booking> books;
+    private DefaultListModel booklistModel;
+    private DefaultListModel modifyroomlistModel;
     private DefaultListModel listModel;
     private DefaultListModel roomlistModel;
     private DefaultListModel roomlistModel2;
@@ -43,24 +49,27 @@ public class mainwindow extends javax.swing.JFrame {
     private List<Room> r1;
     private List<Room> r2;
 
-
     /**
      * Creates new form mainwindow
      */
     public mainwindow() {
+        super("Hotel System");
         myInit();
-        initComponents();
+        initComponents();        
     }
     
     public void myInit(){
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("../../icon.png")));
         displayFormat = new SimpleDateFormat("dd--MMMM--yyyy");
         displayFormatter = new DateFormatter(displayFormat);
         editFormat = new SimpleDateFormat("dd/MM/yyyy");
         editFormatter = new DateFormatter(editFormat);
-        factory = new DefaultFormatterFactory(displayFormatter, displayFormatter, editFormatter);
+        factory = new DefaultFormatterFactory(editFormatter, displayFormatter, editFormatter);
         listModel = new DefaultListModel();
         roomlistModel = new DefaultListModel();
         roomlistModel2 = new DefaultListModel();
+        booklistModel = new DefaultListModel();
+        modifyroomlistModel = new DefaultListModel();
     }
 
     /**
@@ -97,7 +106,8 @@ public class mainwindow extends javax.swing.JFrame {
         jPanel11 = new javax.swing.JPanel();
         jCustomerbutton = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
-        jCustomertext = new javax.swing.JLabel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jCustomertext = new javax.swing.JTextPane();
         jLabel1 = new javax.swing.JLabel();
         jEditpanel = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
@@ -116,24 +126,27 @@ public class mainwindow extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jPanel19 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList<>();
+        jmodifyRoomlist = new javax.swing.JList<>();
         jPanel18 = new javax.swing.JPanel();
         jPanel20 = new javax.swing.JPanel();
         jmodifyClear = new javax.swing.JButton();
+        jmodifyCancel = new javax.swing.JButton();
         jmodifyModify = new javax.swing.JButton();
         jPanel21 = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jmodifyRBenefits = new javax.swing.JTextPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jTabbedPane2.setToolTipText("");
 
         jBookingpanel.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
                 jBookingpanelAncestorAdded(evt);
             }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
-            }
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
         });
         jBookingpanel.setLayout(new java.awt.BorderLayout(10, 10));
@@ -170,7 +183,7 @@ public class mainwindow extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 125, Short.MAX_VALUE)
+            .addGap(0, 114, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -193,6 +206,7 @@ public class mainwindow extends javax.swing.JFrame {
 
         jBookingpanel.add(jBookpanel, java.awt.BorderLayout.CENTER);
 
+        jTypepanel.setPreferredSize(new java.awt.Dimension(200, 313));
         jTypepanel.setLayout(new javax.swing.BoxLayout(jTypepanel, javax.swing.BoxLayout.PAGE_AXIS));
 
         jPanel2.setMaximumSize(new java.awt.Dimension(32767, 20));
@@ -203,7 +217,7 @@ public class mainwindow extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 165, Short.MAX_VALUE)
+            .addGap(0, 200, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -225,7 +239,7 @@ public class mainwindow extends javax.swing.JFrame {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 165, Short.MAX_VALUE)
+            .addGap(0, 200, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -237,6 +251,11 @@ public class mainwindow extends javax.swing.JFrame {
         jCheckintext.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jCheckintext.setToolTipText("Check in");
         jCheckintext.setMaximumSize(new java.awt.Dimension(150, 40));
+        jCheckintext.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jCheckintextKeyPressed(evt);
+            }
+        });
         jTypepanel.add(jCheckintext);
 
         jPanel5.setMaximumSize(new java.awt.Dimension(32767, 7));
@@ -247,7 +266,7 @@ public class mainwindow extends javax.swing.JFrame {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 165, Short.MAX_VALUE)
+            .addGap(0, 200, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -259,6 +278,11 @@ public class mainwindow extends javax.swing.JFrame {
         jCheckouttext.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jCheckouttext.setToolTipText("Check out");
         jCheckouttext.setMaximumSize(new java.awt.Dimension(150, 40));
+        jCheckouttext.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jCheckouttextKeyPressed(evt);
+            }
+        });
         jTypepanel.add(jCheckouttext);
 
         jPanel6.setLayout(new java.awt.GridLayout(2, 0));
@@ -300,7 +324,7 @@ public class mainwindow extends javax.swing.JFrame {
         jPanel12.setLayout(jPanel12Layout);
         jPanel12Layout.setHorizontalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 165, Short.MAX_VALUE)
+            .addGap(0, 200, Short.MAX_VALUE)
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -324,7 +348,7 @@ public class mainwindow extends javax.swing.JFrame {
         jPanel11Layout.setHorizontalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
-                .addContainerGap(47, Short.MAX_VALUE)
+                .addContainerGap(82, Short.MAX_VALUE)
                 .addComponent(jCustomerbutton)
                 .addGap(37, 37, 37))
         );
@@ -340,25 +364,14 @@ public class mainwindow extends javax.swing.JFrame {
 
         jPanel3.setMaximumSize(new java.awt.Dimension(32767, 100));
         jPanel3.setPreferredSize(new java.awt.Dimension(108, 50));
+        jPanel3.setLayout(new java.awt.BorderLayout());
 
-        jCustomertext.setBackground(new java.awt.Color(251, 250, 248));
-        jCustomertext.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jCustomertext.setText("no Customer");
+        jCustomertext.setEditable(false);
         jCustomertext.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
+        jCustomertext.setEnabled(false);
+        jScrollPane5.setViewportView(jCustomertext);
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jCustomertext, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jCustomertext, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29))
-        );
+        jPanel3.add(jScrollPane5, java.awt.BorderLayout.CENTER);
 
         jTypepanel.add(jPanel3);
 
@@ -376,12 +389,12 @@ public class mainwindow extends javax.swing.JFrame {
         jTabbedPane2.addTab("Reservation", jBookingpanel);
 
         jEditpanel.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
                 jEditpanelAncestorAdded(evt);
             }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
-            }
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
         });
 
@@ -414,37 +427,49 @@ public class mainwindow extends javax.swing.JFrame {
 
         jPanel7.add(jPanel8, java.awt.BorderLayout.NORTH);
 
-        jPanel10.setLayout(new java.awt.GridLayout(1, 2));
+        jPanel10.setLayout(new java.awt.BorderLayout());
 
+        jPanel13.setMaximumSize(new java.awt.Dimension(700, 2147483647));
         jPanel13.setLayout(new java.awt.BorderLayout());
 
         jPanel14.setLayout(new java.awt.BorderLayout());
 
         jmodifySearchtext.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jmodifySearchtext.setText("Search Booking");
+        jmodifySearchtext.setText("Search_Booking");
+        jmodifySearchtext.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmodifySearchtextActionPerformed(evt);
+            }
+        });
         jPanel14.add(jmodifySearchtext, java.awt.BorderLayout.CENTER);
 
         jmodifySearch.setText("Search");
+        jmodifySearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmodifySearchActionPerformed(evt);
+            }
+        });
         jPanel14.add(jmodifySearch, java.awt.BorderLayout.EAST);
 
         jPanel13.add(jPanel14, java.awt.BorderLayout.NORTH);
 
         jPanel15.setLayout(new java.awt.GridLayout(1, 1, 0, 100));
 
-        jmodifyBooklist.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1 Room 1 Customer 1 Checkin Checkout", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jmodifyBooklist.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jmodifyBooklist.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jmodifyBooklistMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(jmodifyBooklist);
 
         jPanel15.add(jScrollPane2);
 
         jPanel13.add(jPanel15, java.awt.BorderLayout.CENTER);
 
-        jPanel10.add(jPanel13);
+        jPanel10.add(jPanel13, java.awt.BorderLayout.CENTER);
 
+        jPanel16.setPreferredSize(new java.awt.Dimension(300, 159));
         jPanel16.setLayout(new java.awt.BorderLayout());
 
         jPanel17.setLayout(new java.awt.BorderLayout());
@@ -461,25 +486,25 @@ public class mainwindow extends javax.swing.JFrame {
 
         jPanel19.setLayout(new java.awt.GridLayout(1, 1));
 
-        jList2.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+        jmodifyRoomlist.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jmodifyRoomlist.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jmodifyRoomlistMouseClicked(evt);
+            }
         });
-        jList2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jScrollPane3.setViewportView(jList2);
+        jScrollPane3.setViewportView(jmodifyRoomlist);
 
         jPanel19.add(jScrollPane3);
 
         jPanel16.add(jPanel19, java.awt.BorderLayout.CENTER);
 
-        jPanel10.add(jPanel16);
+        jPanel10.add(jPanel16, java.awt.BorderLayout.EAST);
 
         jPanel7.add(jPanel10, java.awt.BorderLayout.CENTER);
 
         jPanel18.setMaximumSize(new java.awt.Dimension(276, 50));
         jPanel18.setPreferredSize(new java.awt.Dimension(276, 40));
-        jPanel18.setLayout(new javax.swing.BoxLayout(jPanel18, javax.swing.BoxLayout.LINE_AXIS));
+        jPanel18.setLayout(new java.awt.GridLayout(1, 0));
 
         jPanel20.setLayout(new java.awt.BorderLayout());
 
@@ -491,26 +516,31 @@ public class mainwindow extends javax.swing.JFrame {
         });
         jPanel20.add(jmodifyClear, java.awt.BorderLayout.WEST);
 
+        jmodifyCancel.setText("Cancel");
+        jmodifyCancel.setToolTipText("Cancel Reservation");
+        jmodifyCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmodifyCancelActionPerformed(evt);
+            }
+        });
+        jPanel20.add(jmodifyCancel, java.awt.BorderLayout.EAST);
+
         jmodifyModify.setText("Modify");
         jmodifyModify.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmodifyModifyActionPerformed(evt);
             }
         });
-        jPanel20.add(jmodifyModify, java.awt.BorderLayout.EAST);
+        jPanel20.add(jmodifyModify, java.awt.BorderLayout.CENTER);
 
         jPanel18.add(jPanel20);
 
-        javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
-        jPanel21.setLayout(jPanel21Layout);
-        jPanel21Layout.setHorizontalGroup(
-            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 289, Short.MAX_VALUE)
-        );
-        jPanel21Layout.setVerticalGroup(
-            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 40, Short.MAX_VALUE)
-        );
+        jPanel21.setLayout(new java.awt.BorderLayout());
+
+        jmodifyRBenefits.setEditable(false);
+        jScrollPane4.setViewportView(jmodifyRBenefits);
+
+        jPanel21.add(jScrollPane4, java.awt.BorderLayout.CENTER);
 
         jPanel18.add(jPanel21);
 
@@ -520,7 +550,7 @@ public class mainwindow extends javax.swing.JFrame {
         jEditpanel.setLayout(jEditpanelLayout);
         jEditpanelLayout.setHorizontalGroup(
             jEditpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 552, Short.MAX_VALUE)
+            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jEditpanelLayout.setVerticalGroup(
             jEditpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -547,43 +577,39 @@ public class mainwindow extends javax.swing.JFrame {
         // Search
         AvailableRooms ar = null;
         int option=0;
-        //r1 = new ArrayList();
-        //r2 = new ArrayList();
-        
-        r1 = DBHandlerGetter.getSameTypeRoom(this.getComboBoxintType(), this.getReservationChekin(), this.getReservationChekout());
+        r1 = DBHandlerGetter.getSameTypeRoom(this.getComboBoxintType(),this.getReservationChekin(), this.getReservationChekout());
+        r1.removeAll(rooms);
         if(!r1.isEmpty()){
             roomlistModel.clear();
             for(Room a : r1)
                 roomlistModel.addElement(a.toString());
-             ar = new AvailableRooms(this);
-            ar.setVisible(true);
+            AvailableRoomsSameType ars = new AvailableRoomsSameType(this);
+            ars.setVisible(true);
         }else{
             option =JOptionPane.showConfirmDialog(null,"None "+ this.getComboBoxType()+ " rooms are available for your dates."
                     + "\nDo you like to see alternative suggestions?", "Alert", JOptionPane.YES_NO_OPTION);
             if(option == JOptionPane.YES_OPTION){
-                r1 = DBHandlerGetter.getAllTypeRoom(this.getComboBoxintType(), this.getReservationChekin(), this.getReservationChekout());
-                if(r1 != null){
+                option = 0;
+                r1 = DBHandlerGetter.getAllTypeRoom(this.getReservationChekin(), this.getReservationChekout());
+                r1.removeAll(rooms);
+                r2 = DBHandlerGetter.getSameTypeRoom(this.getComboBoxintType(), this.getAlternativeCheckin(), this.getAlternativeCheckout());
+                if(!r1.isEmpty()){
+                    option = 1;
                     roomlistModel.clear();
                     for(Room a : r1)
                         roomlistModel.addElement(a.toString());
+                }
+                if(!r2.isEmpty()){
+                    option = 1;
+                    roomlistModel2.clear();
+                    for(Room a : r2)
+                        roomlistModel2.addElement(a.toString());
+                }
+                if(option == 1){
                     ar = new AvailableRooms(this);
                     ar.setVisible(true);
-                }
-            }
-        }
-        
-        if(option == JOptionPane.YES_OPTION){
-            r2 = DBHandlerGetter.getSameTypeRoom(this.getComboBoxintType(), this.getAlternativeCheckin(), this.getAlternativeCheckout());
-            if(!r2.isEmpty()){
-                roomlistModel2.clear();
-                for(Room a : r2)
-                    roomlistModel2.addElement(a.toString());
-                if(ar == null){
-                    ar = new AvailableRooms(this);
-                    ar.setVisible(true);
-                }
-            }else{
-                JOptionPane.showMessageDialog(null, "None rooms are available for your dates.", "Alert", JOptionPane.ERROR_MESSAGE);
+                }else
+                    JOptionPane.showMessageDialog(null, "None rooms are available for your dates.", "Alert", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_jSearchroomActionPerformed
@@ -591,10 +617,10 @@ public class mainwindow extends javax.swing.JFrame {
     private void jClearbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jClearbuttonActionPerformed
         // Clear
         listModel.clear();
+        rooms.clear();
         jType.setSelectedIndex(0);
-        //jCheckintext.setValue(Date.from(Instant.now()));
-        //jCheckouttext.setValue(Date.from(Instant.now()));
-        jCustomertext.setText("no Customer");
+        jCheckintext.setValue(Date.from(Instant.now()));
+        jCheckouttext.setValue(Date.from(Instant.now()));
         jCustomertext.setBorder(BorderFactory.createLineBorder(Color.red));
     }//GEN-LAST:event_jClearbuttonActionPerformed
 
@@ -614,54 +640,152 @@ public class mainwindow extends javax.swing.JFrame {
     }//GEN-LAST:event_jCustomerbuttonActionPerformed
     
     private void jConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jConfirmActionPerformed
-        // TODO add your handling code here:
+        // Confirm
+        Booking b = new Booking();
+        b.setRooms(rooms);
+        b.setDate(this.getReservationChekin(), this.getReservationChekout());
+        b.setCustomer(customer);
+        int option = 0;
+        if(customer == null || this.listModel.isEmpty())
+            JOptionPane.showMessageDialog(null, "You have to select a customer and room(s) to confirm a reservation!", "Alert", JOptionPane.ERROR_MESSAGE);
+        else if(customer != null && !this.listModel.isEmpty()){
+            String st = "Dear "+customer.getFname() +" "+customer.getLname() +" do you agree with the following reservation?"
+                    + "\nNumber of rooms: "+rooms.size() + " Period: "+ this.jCheckintext.getText() +" to "+ this.jCheckouttext.getText() +" Total cost: $"+b.getTotalCost();
+            option = JOptionPane.showConfirmDialog(null, st, "Alert", JOptionPane.YES_NO_OPTION);
+            if(option == JOptionPane.YES_OPTION){
+                //create booking and restoring to DB
+                DBHandlerSetter.addBooking(b);
+                System.out.println(b);
+                System.out.println("ID:"+b.getBookid());
+                st = "Dear "+customer.getFname() +" "+customer.getLname() +" thank you for your choice!\nYour Reservation ID is: "+b.getBookid();
+                JOptionPane.showMessageDialog(null, st, "New Reservation", JOptionPane.INFORMATION_MESSAGE);
+                this.jClearbuttonActionPerformed(null);
+            }
+        }
     }//GEN-LAST:event_jConfirmActionPerformed
 
     private void jBookingpanelAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jBookingpanelAncestorAdded
         // resize
+        this.jClearbuttonActionPerformed(null);
         this.setSize(500, 400);
     }//GEN-LAST:event_jBookingpanelAncestorAdded
 
     private void jEditpanelAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jEditpanelAncestorAdded
         // resize
         books = new ArrayList();
-        this.setSize(800, 400);
+        this.jmodifyClearActionPerformed(null);
+        this.setSize(1000, 400);
     }//GEN-LAST:event_jEditpanelAncestorAdded
 
     private void jmodifyClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmodifyClearActionPerformed
         // Clear the selections
-        this.jmodifySearchtext.setText("Search Booking");
+        this.jmodifySearchtext.setText("Search_Booking");
+        this.booklistModel.clear();
         this.jmodifyBooklist.setSelectedIndex(-1);
-        this.jList2.setSelectedIndex(-1);
+        this.modifyroomlistModel.clear();
+        this.jmodifyRoomlist.setSelectedIndex(-1);
+        this.jmodifyRBenefits.setText("");
         
     }//GEN-LAST:event_jmodifyClearActionPerformed
 
     private void jmodifyModifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmodifyModifyActionPerformed
         // selct a booking for modify
-        ModifyBooking mb = new ModifyBooking(this.jmodifyBooklist.getSelectedValue());
-        mb.setVisible(true);
+        if(!this.jmodifyBooklist.isSelectionEmpty()){
+            
+            ModifyBooking mb = new ModifyBooking(books.get(this.jmodifyBooklist.getSelectedIndex()));
+            mb.setVisible(true);
+        }else
+            JOptionPane.showMessageDialog(null, "You have to select booking first.", "Alert", JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_jmodifyModifyActionPerformed
 
-    protected void addCustomername(String data){
-        this.jCustomertext.setText(data);
+    private void jCheckouttextKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jCheckouttextKeyPressed
+        listModel.clear();
+        rooms.clear();
+    }//GEN-LAST:event_jCheckouttextKeyPressed
+
+    private void jCheckintextKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jCheckintextKeyPressed
+        listModel.clear();
+        rooms.clear();
+    }//GEN-LAST:event_jCheckintextKeyPressed
+
+    private void jmodifySearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmodifySearchActionPerformed
+        // Search for booking
+        //this.jmodifySearchtext.setText("07/06/2017 to 14/06/2017");
+        books = DBHandlerGetter.getBookingByAny(this.jmodifySearchtext.getText());
+        if(!books.isEmpty()){
+            this.addBookingsforModify();
+        }else
+            JOptionPane.showMessageDialog(null, "Can't find booking details with `"+this.jmodifySearchtext.getText()+"`.", "Alert", JOptionPane.ERROR_MESSAGE);
+    }//GEN-LAST:event_jmodifySearchActionPerformed
+
+    private void jmodifyBooklistMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jmodifyBooklistMouseClicked
+        // booking click
+        this.jmodifyRBenefits.setText("");
+        if(!this.jmodifyBooklist.isSelectionEmpty())
+            this.addRoomsforModify(this.jmodifyBooklist.getSelectedIndex());
+    }//GEN-LAST:event_jmodifyBooklistMouseClicked
+
+    private void jmodifyRoomlistMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jmodifyRoomlistMouseClicked
+        // room click
+        this.jmodifyRBenefits.setText("");
+        if(!this.jmodifyRoomlist.isSelectionEmpty())
+            this.jmodifyRBenefits.setText("Benefits: "+books.get(this.jmodifyBooklist.getSelectedIndex()).getRooms().get(this.jmodifyRoomlist.getSelectedIndex()).Benefits()+"     ");
+    }//GEN-LAST:event_jmodifyRoomlistMouseClicked
+
+    private void jmodifyCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmodifyCancelActionPerformed
+        // delete reservation
+        int option = 0;
+        if(!this.jmodifyBooklist.isSelectionEmpty()){
+            option = JOptionPane.showConfirmDialog(null, "You select to delete booking with booking id: "+books.get(this.jmodifyBooklist.getSelectedIndex()).getBookid()+".\nAre you sure?", "Alert", JOptionPane.YES_NO_OPTION);
+            if(option == JOptionPane.YES_OPTION){
+                if(DBHandlerSetter.deleteResarvation(books.get(this.jmodifyBooklist.getSelectedIndex()).getBookid())){
+                    JOptionPane.showMessageDialog(null, "The booking with booking id: "+books.get(this.jmodifyBooklist.getSelectedIndex()).getBookid()+" is deleted!", "Alert", JOptionPane.INFORMATION_MESSAGE);
+                    this.booklistModel.remove(this.jmodifyBooklist.getSelectedIndex());
+                    this.modifyroomlistModel.clear();
+                }else
+                    JOptionPane.showMessageDialog(null, "Problem with DataBase", "Alert", JOptionPane.ERROR_MESSAGE);
+            }
+        }else
+            JOptionPane.showMessageDialog(null, "You have to select booking first.", "Alert", JOptionPane.ERROR_MESSAGE);
+    }//GEN-LAST:event_jmodifyCancelActionPerformed
+
+    private void jmodifySearchtextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmodifySearchtextActionPerformed
+        this.jmodifySearchActionPerformed(null);
+    }//GEN-LAST:event_jmodifySearchtextActionPerformed
+
+    protected void addCustomer(Customer c){
+        customer = new Customer(c);
+        this.jCustomertext.setText(c.CustomerName()+"\nID number: "+c.getAT());
         this.jCustomertext.setBorder(null);
     }
     protected Booking getBookingformodify(){
         return books.get(this.jmodifyBooklist.getSelectedIndex());
     }
     
-    protected void addBookingList(String dataline, int index){
-        //this.listModel.addElement(dataline);
-        rooms.add(r1.get(index));
-        listModel.clear();
-        for(Room a : rooms)
-            listModel.addElement(a);
-        
-        this.jBookinglist.setModel(listModel);
+    protected void addBookingList(int list,int index){
+        if(list == 1){
+            rooms.add(r1.get(index));
+            if(!rooms.contains(r1.get(index)))
+                rooms.add(r1.get(index));
+            listModel.clear();
+            for(Room a : rooms)
+                listModel.addElement(a);
+
+            this.jBookinglist.setModel(listModel);
+        }else{
+            this.AlternativeResarvation();
+            rooms.add(r2.get(index));
+            listModel.clear();
+            for(Room a : rooms)
+                listModel.addElement(a);
+
+            this.jBookinglist.setModel(listModel);
+        }
     }
     
     protected String getComboBoxType(){
         return (String) this.jType.getSelectedItem();
+
     }
     
     public int getComboBoxintType(){
@@ -669,21 +793,21 @@ public class mainwindow extends javax.swing.JFrame {
     }
     
     protected String getReservationChekin(){
-        Date d = (Date)this.jCheckintext.getValue();
-        String s = editFormat.format(d);
-        return s;
+        Date d1 = (Date)this.jCheckintext.getValue();
+        String s1 = editFormat.format(new Date(d1.getTime()));
+        return s1;
     }
     
     protected String getReservationChekout(){
-        Date d = (Date)this.jCheckintext.getValue();
-        String s = editFormat.format(d);
-        return s;
+        Date d1 = (Date)this.jCheckouttext.getValue();
+        String s1 = editFormat.format(new Date(d1.getTime()));
+        return s1;
     }
     
     protected void AlternativeResarvation(){
         Date d1;
         this.listModel.clear();
-        this.rooms.clear();
+        this.rooms= new ArrayList();
         d1 = (Date)this.jCheckintext.getValue();
         d1.setTime(d1.getTime()+days*24*60*60*1000);
         this.jCheckintext.setValue(d1);
@@ -710,6 +834,30 @@ public class mainwindow extends javax.swing.JFrame {
     
     protected DefaultListModel getroomlistmodel2(){
         return roomlistModel2;
+    }
+    
+    protected String getBenefits(int list, int i){
+        if(list == 1)
+            return this.r1.get(i).Benefits();
+        else
+            return this.r2.get(i).Benefits();
+    }
+    
+    private void addBookingsforModify(){
+        booklistModel.clear();
+        for(Booking b : books)
+            booklistModel.addElement(b);
+        
+        this.jmodifyBooklist.setModel(booklistModel);
+    }
+    
+    private void addRoomsforModify(int index){
+        modifyroomlistModel.clear();
+        Booking b = books.get(index);
+        for(Room r : b.getRooms())
+            modifyroomlistModel.addElement(r);
+        
+        this.jmodifyRoomlist.setModel(modifyroomlistModel);
     }
             
             
@@ -758,13 +906,12 @@ public class mainwindow extends javax.swing.JFrame {
     private javax.swing.JButton jClearbutton;
     private javax.swing.JButton jConfirm;
     private javax.swing.JButton jCustomerbutton;
-    private javax.swing.JLabel jCustomertext;
+    private javax.swing.JTextPane jCustomertext;
     private javax.swing.JPanel jEditpanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JList<String> jList2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
@@ -790,13 +937,18 @@ public class mainwindow extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JButton jSearchroom;
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JComboBox<String> jType;
     private javax.swing.JPanel jTypepanel;
     private javax.swing.JList<String> jmodifyBooklist;
+    private javax.swing.JButton jmodifyCancel;
     private javax.swing.JButton jmodifyClear;
     private javax.swing.JButton jmodifyModify;
+    private javax.swing.JTextPane jmodifyRBenefits;
+    private javax.swing.JList<String> jmodifyRoomlist;
     private javax.swing.JButton jmodifySearch;
     private javax.swing.JTextField jmodifySearchtext;
     // End of variables declaration//GEN-END:variables

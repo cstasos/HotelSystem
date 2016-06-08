@@ -15,15 +15,22 @@ import Domain.DataBase.CustomerDB;
  * @author sakis
  */
 public class DBHandlerSetter {
-    private Booking b;
-    //private CustomerDB CDB;
+
+    public static boolean deleteResarvation(int bookid) {
+       return BookingDB.deleteFromReservationByBookingId(bookid);
+    }
     
-    public static void addCustomer(Customer c){
-        CustomerDB.addCustomer(c);
+    public static int addCustomer(Customer c){
+        return CustomerDB.addCustomer(c);
     }
     
     public static void addBooking(Booking b){
         BookingDB.addnewBooking(b);
+    }
+    
+    public static void updateBooking(Booking b){
+        CustomerDB.updateCustomer(b.getCustomer());
+        BookingDB.updateBooking(b);
     }
     
 }

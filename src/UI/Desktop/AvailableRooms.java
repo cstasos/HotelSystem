@@ -5,12 +5,6 @@
  */
 package UI.Desktop;
 
-import Controller.DBHandlerGetter;
-import Domain.Classies.Room;
-import java.util.ArrayList;
-import java.util.List;
-import javax.swing.DefaultListModel;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 
 
@@ -21,32 +15,27 @@ import javax.swing.JOptionPane;
  */
 public class AvailableRooms extends javax.swing.JFrame {
     private mainwindow myfather;
-    private DefaultListModel listModel1 = new DefaultListModel();
-    private DefaultListModel listModel2;
-    private DefaultListModel listModel3;
     
 
     /**
      * Creates new form AvailableRooms
      */
     public AvailableRooms(mainwindow mw) {
+        super("Alternative Suggestion");
         myfather=mw;
         initComponents();
         myInit();
     }
     
+    
     private void myInit(){
-        this.jLabel1.setText("Type of room: "+this.myfather.getComboBoxType());
-        //this.jLabel3.setText("NOT type of room: "+this.myfather.getComboBoxType());
-        this.jLabel4.setText("Type of room: "+this.myfather.getComboBoxType()+" "+this.myfather.getAlternativeCheckin()+"----"+this.myfather.getAlternativeCheckout());
+        this.jLabel1.setText("NOT type of room: "+this.myfather.getComboBoxType());
+        this.jLabel4.setText("Type of room: "+this.myfather.getComboBoxType()+" "+this.myfather.getAlternativeCheckin()+" to "+this.myfather.getAlternativeCheckout());
         
         // gemisma twn listwn
-        //jList1 = new JList();
         jList1.setModel(this.myfather.getroomlistmodel());
         if(this.myfather.getroomlistmodel2()!=null)
             jList2.setModel(this.myfather.getroomlistmodel2());
-        
-        
     }
 
     /**
@@ -71,6 +60,10 @@ public class AvailableRooms extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         jList2 = new javax.swing.JList<>();
         jPanel5 = new javax.swing.JPanel();
+        jPanel7 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTooltext = new javax.swing.JTextPane();
+        jPanel4 = new javax.swing.JPanel();
         jCancel = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jAddroom = new javax.swing.JButton();
@@ -85,7 +78,7 @@ public class AvailableRooms extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 841, Short.MAX_VALUE)
+            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 888, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -106,6 +99,7 @@ public class AvailableRooms extends javax.swing.JFrame {
         jsameType.add(jLabel1);
 
         jList1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jList1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jList1.setVisibleRowCount(10);
         jList1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -125,6 +119,7 @@ public class AvailableRooms extends javax.swing.JFrame {
         jsameType1.add(jLabel4);
 
         jList2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jList2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jList2.setVisibleRowCount(10);
         jList2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -139,13 +134,34 @@ public class AvailableRooms extends javax.swing.JFrame {
 
         jPanel1.add(jPanel3, java.awt.BorderLayout.CENTER);
 
+        jPanel5.setLayout(new javax.swing.BoxLayout(jPanel5, javax.swing.BoxLayout.PAGE_AXIS));
+
+        jPanel7.setMaximumSize(new java.awt.Dimension(32767, 35));
+        jPanel7.setPreferredSize(new java.awt.Dimension(841, 25));
+        jPanel7.setLayout(new java.awt.BorderLayout());
+
+        jScrollPane2.setMaximumSize(new java.awt.Dimension(32767, 50));
+        jScrollPane2.setPreferredSize(new java.awt.Dimension(8, 40));
+
+        jTooltext.setEditable(false);
+        jTooltext.setMaximumSize(new java.awt.Dimension(2147483647, 50));
+        jTooltext.setPreferredSize(new java.awt.Dimension(6, 40));
+        jScrollPane2.setViewportView(jTooltext);
+
+        jPanel7.add(jScrollPane2, java.awt.BorderLayout.CENTER);
+
+        jPanel5.add(jPanel7);
+
+        jPanel4.setMaximumSize(new java.awt.Dimension(32767, 60));
+        jPanel4.setPreferredSize(new java.awt.Dimension(841, 40));
+
         jCancel.setText("Cancel");
         jCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCancelActionPerformed(evt);
             }
         });
-        jPanel5.add(jCancel);
+        jPanel4.add(jCancel);
 
         jPanel6.setMaximumSize(new java.awt.Dimension(32767, 50));
         jPanel6.setPreferredSize(new java.awt.Dimension(100, 20));
@@ -161,7 +177,7 @@ public class AvailableRooms extends javax.swing.JFrame {
             .addGap(0, 20, Short.MAX_VALUE)
         );
 
-        jPanel5.add(jPanel6);
+        jPanel4.add(jPanel6);
 
         jAddroom.setText("Add Room");
         jAddroom.addActionListener(new java.awt.event.ActionListener() {
@@ -169,7 +185,9 @@ public class AvailableRooms extends javax.swing.JFrame {
                 jAddroomActionPerformed(evt);
             }
         });
-        jPanel5.add(jAddroom);
+        jPanel4.add(jAddroom);
+
+        jPanel5.add(jPanel4);
 
         jPanel1.add(jPanel5, java.awt.BorderLayout.SOUTH);
 
@@ -181,7 +199,7 @@ public class AvailableRooms extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE)
         );
 
         pack();
@@ -189,21 +207,15 @@ public class AvailableRooms extends javax.swing.JFrame {
 
     private void jAddroomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAddroomActionPerformed
         //return the room
-        String st=null;
-        if(jList1.getSelectedValue()!=null){
-            st = new String(jList1.getSelectedValue());
-            myfather.addBookingList(st,jList1.getSelectedIndex());
-        }else if(jList2.getSelectedValue()!=null){
-            st = new String(jList2.getSelectedValue());            
-            this.myfather.AlternativeResarvation();
-            myfather.addBookingList(st,jList2.getSelectedIndex());
-        }
         
-        if(st!=null){
-            
+        if(!this.jList1.isSelectionEmpty()){
+            myfather.addBookingList(1,jList1.getSelectedIndex());
             this.dispose();
-        }else 
-            JOptionPane.showMessageDialog(null, "You have to select a room first", "Alert", JOptionPane.ERROR_MESSAGE); 
+        }else if(!this.jList2.isSelectionEmpty()){
+            myfather.addBookingList(2,jList2.getSelectedIndex());
+            this.dispose();
+        }else
+            JOptionPane.showMessageDialog(null, "You have to select a room first", "Alert", JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_jAddroomActionPerformed
 
     private void jCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCancelActionPerformed
@@ -216,11 +228,13 @@ public class AvailableRooms extends javax.swing.JFrame {
     private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
         // clear other
         jList2.clearSelection();
+        this.jTooltext.setText("Benefits: "+this.myfather.getBenefits(1, this.jList1.getSelectedIndex()));
     }//GEN-LAST:event_jList1MouseClicked
 
     private void jList2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList2MouseClicked
         // clear other
         jList1.clearSelection();
+        this.jTooltext.setText("Benefits: "+this.myfather.getBenefits(2, this.jList2.getSelectedIndex()));
     }//GEN-LAST:event_jList2MouseClicked
 
     
@@ -236,10 +250,14 @@ public class AvailableRooms extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTextPane jTooltext;
     private javax.swing.JPanel jsameType;
     private javax.swing.JPanel jsameType1;
     // End of variables declaration//GEN-END:variables

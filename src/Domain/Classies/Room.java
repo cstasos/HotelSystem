@@ -36,10 +36,29 @@ public abstract class Room {
     public int getID(){
         return this.ID;
     }
+    
+    public int getPrice(){
+        return this.price;
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Room other = (Room) obj;
+        if (this.ID != other.ID) {
+            return false;
+        }
+        return true;
+    }
 
     @Override
     public String toString() {
-        return "IDroom="+ ID + "type=" + type + ", price=" + price+"$";
+        return "IDroom= "+ ID + ", type= " + type + ", price= " + price+"$";
     }
     
        

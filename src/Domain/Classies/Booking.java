@@ -12,12 +12,12 @@ import java.util.List;
  * @author sakis
  */
 public class Booking {
-    private String bookid;
+    private int bookid;
     private List<Room> rooms;
     private Customer customer;
     private ReservationDate date;
 
-    public String getBookid() {
+    public int getBookid() {
         return bookid;
     }
 
@@ -33,7 +33,7 @@ public class Booking {
         return date.getCheckoutDate();
     }
 
-    public void setBookid(String bookid) {
+    public void setBookid(int bookid) {
         this.bookid = bookid;
     }
 
@@ -52,10 +52,31 @@ public class Booking {
     public void setRooms(List<Room> rooms) {
         this.rooms = rooms;
     }
+    
+    public ReservationDate getReservationDate(){
+        return this.date;
+    } 
+    
+    public int getTotalCost(){
+        int cost = 0;
+        for(Room r : rooms)
+            cost+=r.getPrice()*date.Duration();
+        return cost;
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        Booking other = (Booking) obj;
+        if(this.bookid == other.bookid){
+            return true;
+        }else{
+            return false;
+        }
+    }
 
     @Override
     public String toString() {
-        return "Booking{" + "bookid=" + bookid + ", #rooms=" + rooms.size() + ", customer=" + customer + ", date=" + date.toString() + '}';
+        return "BookingID #"+bookid +"#"+ date +",#rooms " + rooms.size() + ", Customer { #" +customer.getCID()+"#" + customer.CustomerName() + "}";
     }
 
 }

@@ -6,6 +6,7 @@
 package UI.Desktop;
 
 import Controller.DBHandlerGetter;
+import Controller.DBHandlerSetter;
 import Domain.Classies.Customer;
 import java.awt.Color;
 import java.util.List;
@@ -25,6 +26,7 @@ public class Customerlogin extends javax.swing.JFrame {
      * Creates new form Customerlogin
      */
     public Customerlogin(mainwindow mw) {
+        super("Customer login");
         this.myfather = mw;
         initComponents();
         myInit();
@@ -32,6 +34,7 @@ public class Customerlogin extends javax.swing.JFrame {
     
     private void myInit(){
         this.jlogin.setSelected(true);
+        customerlistModel = new DefaultListModel();
     }
     
     private boolean CheckName(){
@@ -209,9 +212,15 @@ public class Customerlogin extends javax.swing.JFrame {
         jPanel3.add(jPanel4, java.awt.BorderLayout.NORTH);
 
         jSearchfield.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jSearchfield.setText("Search Customer");
+        jSearchfield.setText("Search_Customer");
+        jSearchfield.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jSearchfieldActionPerformed(evt);
+            }
+        });
 
         jSearch.setText("Search");
+        jSearch.setToolTipText("Search Customers by { ID, IDnumber, First name, Last name }");
         jSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jSearchActionPerformed(evt);
@@ -219,7 +228,13 @@ public class Customerlogin extends javax.swing.JFrame {
         });
 
         jList1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jList1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jList1.setVisibleRowCount(6);
+        jList1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jList1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jList1);
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
@@ -340,6 +355,11 @@ public class Customerlogin extends javax.swing.JFrame {
 
         jCancel.setText("Cancel");
         jCancel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCancelActionPerformed(evt);
+            }
+        });
         jPanel15.add(jCancel);
 
         jPanel16.setPreferredSize(new java.awt.Dimension(100, 50));
@@ -417,20 +437,19 @@ public class Customerlogin extends javax.swing.JFrame {
 
     private void jOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jOKActionPerformed
         // return Customer
-        String str = null;
         int joption = 0;
         if(this.jlogin.isSelected()){
             if(!this.jList1.isSelectionEmpty()){
-                str = new String(this.jList1.getSelectedValue());
-                this.myfather.addCustomername(str);
+                System.out.println(customerlistModel.getElementAt(this.jList1.getSelectedIndex()));
+                this.myfather.addCustomer((Customer)customerlistModel.getElementAt(this.jList1.getSelectedIndex()));
             }else{
                 JOptionPane.showMessageDialog(null, "You have to select a customer first", "Alert", JOptionPane.ERROR_MESSAGE);
                 joption = 1;
             }
         }else if(this.jSignup.isSelected()){
-            if(CheckName()){
-                str = new String(this.jLnamefield.getText()+" "+this.jFnamefield.getText());
-                this.myfather.addCustomername(str);
+            if(CheckName()){                
+               int id = DBHandlerSetter.addCustomer(new Customer(this.jLnamefield.getText(),this.jFnamefield.getText(),(String)this.jGender.getSelectedItem(),this.jIDfield.getText(),this.jPhonefield.getText()));
+               this.myfather.addCustomer(new Customer(id,this.jLnamefield.getText(),this.jFnamefield.getText(),(String)this.jGender.getSelectedItem(),this.jIDfield.getText(),this.jPhonefield.getText()));
             }else{
                 JOptionPane.showMessageDialog(null, "Invalid Last Name or First Name or ID number", "Alert", JOptionPane.ERROR_MESSAGE);
                 joption = 1;
@@ -443,8 +462,8 @@ public class Customerlogin extends javax.swing.JFrame {
 
     private void jClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jClearActionPerformed
         // Clear
-        this.jSearchfield.setText("Search Customer");
-        this.jList1.removeAll();
+        this.jSearchfield.setText("Search_Customer");
+        customerlistModel.clear();
         this.jLnamefield.setText("");
         this.jFnamefield.setText("");
         this.jGender.setSelectedIndex(0);
@@ -458,17 +477,34 @@ public class Customerlogin extends javax.swing.JFrame {
 
     private void jSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSearchActionPerformed
         // Search Customer
-        List<CustomerID> customersid;
+        customerlistModel.clear();
+        List<Customer> customersid;
         customersid = DBHandlerGetter.getCustomer(this.jSearchfield.getText());
-        if(customersid != null){
-            customerlistModel = new DefaultListModel();
-            for(CustomerID c: customersid)
+        if(!customersid.isEmpty()){
+            for(Customer c: customersid)
                 customerlistModel.addElement(c);
             this.jList1.setModel(customerlistModel);
         }else{
-            JOptionPane.showMessageDialog(null, "Can't find customer "+this.jSearchfield.getText()+"!", "Alert", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Can't find customer `"+this.jSearchfield.getText()+"`.", "Alert", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jSearchActionPerformed
+
+    private void jCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCancelActionPerformed
+        // exit
+        this.dispose();
+    }//GEN-LAST:event_jCancelActionPerformed
+
+    private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
+        // customer toolString
+        if(!jList1.isSelectionEmpty()){
+            Customer c = (Customer)customerlistModel.getElementAt(this.jList1.getSelectedIndex()); 
+            jList1.setToolTipText(c.toolString());
+        }
+    }//GEN-LAST:event_jList1MouseClicked
+
+    private void jSearchfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSearchfieldActionPerformed
+        this.jSearchActionPerformed(evt);
+    }//GEN-LAST:event_jSearchfieldActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

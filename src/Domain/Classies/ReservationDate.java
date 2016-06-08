@@ -24,13 +24,25 @@ public class ReservationDate {
         return checkin.getDate();
     }
 
+    public String getCheckinName(){
+        return checkin.getDateName();
+    }
+    
+    public String getCheckoutName(){
+        return checkout.getDateName();
+    }
+    
     public Object getCheckoutDate() {
         return checkout.getDate();
     }
     
+    public int Duration(){
+        return myDate.getDuration(this.checkin, this.checkout);
+    }
+    
     @Override
     public String toString() {
-        return "ReservationDate{" + "checkin=" + checkin + ", checkout=" + checkout + '}';
+        return "Dates {" + checkin + " to " + checkout+" }";
     }
     
     
