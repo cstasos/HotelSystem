@@ -9,7 +9,6 @@ package Domain.DataBase;
 import Domain.Classies.Booking;
 import Domain.Classies.Customer;
 import Domain.Classies.Room;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -104,8 +103,6 @@ public class BookingDB extends DataBase {
             int value = Integer.parseInt(s);
 
             try {
-                con = DriverManager.getConnection(url, "root", "tasos");
-
                 String query = "SELECT DISTINCT * FROM room_reservation_customer where type = ? or id = ? or reservation_id = ?";            
                 PreparedStatement pst = null;
                 ResultSet rs = null;
@@ -314,4 +311,94 @@ public class BookingDB extends DataBase {
         return true;
     }
     
+    public static void checkin(int bid){
+        Connection();
+        try {                     
+            String query = "insert into CheckedIn  values ( ?)";            
+            PreparedStatement pst = null;
+            ResultSet rs = null;
+            
+            pst = con.prepareStatement(query);
+                    
+            pst.setInt(1, bid);
+            pst.executeUpdate();
+    
+            pst.close();
+            
+        } catch (SQLException ex) {
+            System.err.println(ex.toString());
+        }
+        CloseConnection();
+    }
+    
+    public static void checkout(Booking b){
+        int bid = b.getBookid();
+        
+        Date javaCheckin = (Date)b.getCheckinDate();
+        Date javaCheckout = (Date)b.getCheckoutDate();
+        
+        Customer customer = (Customer) b.getCustomer();
+        
+        deleteFromReservationByBookingId(bid);
+        
+        Connection();
+        try {
+            String query = "insert into History  values ( ?, ?, ?, ?)";            
+            PreparedStatement pst = null;
+            ResultSet rs = null;
+            
+            pst = con.prepareStatement(query);
+                    
+            pst.setInt(1, bid);
+            pst.setDate(2, new java.sql.Date(javaCheckin.getTime()));
+            pst.setDate(3, new java.sql.Date(javaCheckout.getTime()));
+            pst.setInt(4, customer.getCID());
+
+            pst.executeUpdate();
+    
+            pst.close();
+            
+        } catch (SQLException ex) {
+            System.err.println(ex.toString());
+        }
+        CloseConnection();
+    }
+    
+    public static List<Booking> getAllCheckinBooking(){
+        List<Booking> bookings = new ArrayList<Booking>();
+        Connection();
+        try {
+            String query = "SELECT * FROM Hoteldb.Reservation where Reservation.id "
+                    + "in (select CheckedIn.reservation_id From CheckedIn)";            
+            PreparedStatement pst = null;
+            ResultSet rs = null;
+
+            pst = con.prepareStatement(query);
+            rs=pst.executeQuery();
+
+            while (rs.next()) {
+                Booking b = new Booking();
+                b.setBookid(rs.getInt(1));
+                String chin = sqlformat.format(rs.getDate(2));
+                String chout = sqlformat.format(rs.getDate(3));
+                b.setDate(chin,chout);
+
+                Customer c = CustomerDB.getCustomerById(rs.getInt(4));
+                b.setCustomer(c);
+                
+                List<Room> rooms = RoomDB.getRoomByResId(rs.getInt(1));                   
+                b.setRooms(rooms);
+                
+                if(!bookings.contains(b))
+                    bookings.add(b);
+            }
+
+            pst.close();
+            
+        } catch (SQLException ex) {
+            System.err.println(ex.toString());
+        }
+        CloseConnection();
+        return bookings;        
+    }
 }

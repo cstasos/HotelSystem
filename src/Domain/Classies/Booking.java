@@ -73,6 +73,10 @@ public class Booking {
             return false;
         }
     }
+    
+    public String toCheckinout(){
+        return "BookingID #"+bookid +"#"+ date +",#rooms " + rooms.size();
+    }
 
     @Override
     public String toString() {

@@ -154,6 +154,7 @@ public class ModifyBooking extends javax.swing.JFrame {
         jPanel8.setPreferredSize(new java.awt.Dimension(222, 35));
         jPanel8.setLayout(new java.awt.BorderLayout());
 
+        jRoombox.setForeground(new java.awt.Color(5, 0, 0));
         jRoombox.setText("Room(s)");
         jRoombox.setEnabled(false);
         jRoombox.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -230,6 +231,7 @@ public class ModifyBooking extends javax.swing.JFrame {
 
         jPanel17.setPreferredSize(new java.awt.Dimension(352, 60));
 
+        jCheckbox.setForeground(new java.awt.Color(1, 1, 1));
         jCheckbox.setText("Check in/out");
         jCheckbox.setEnabled(false);
         jCheckbox.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -308,6 +310,7 @@ public class ModifyBooking extends javax.swing.JFrame {
         jPanel21.setMinimumSize(new java.awt.Dimension(100, 35));
         jPanel21.setPreferredSize(new java.awt.Dimension(100, 60));
 
+        jCustomerbox.setForeground(new java.awt.Color(1, 1, 1));
         jCustomerbox.setText("Customer");
         jCustomerbox.setEnabled(false);
         jCustomerbox.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);

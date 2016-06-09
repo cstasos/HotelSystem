@@ -230,11 +230,6 @@ public class Customerlogin extends javax.swing.JFrame {
         jList1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jList1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jList1.setVisibleRowCount(6);
-        jList1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jList1MouseClicked(evt);
-            }
-        });
         jScrollPane1.setViewportView(jList1);
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
@@ -493,14 +488,6 @@ public class Customerlogin extends javax.swing.JFrame {
         // exit
         this.dispose();
     }//GEN-LAST:event_jCancelActionPerformed
-
-    private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
-        // customer toolString
-        if(!jList1.isSelectionEmpty()){
-            Customer c = (Customer)customerlistModel.getElementAt(this.jList1.getSelectedIndex()); 
-            jList1.setToolTipText(c.toolString());
-        }
-    }//GEN-LAST:event_jList1MouseClicked
 
     private void jSearchfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSearchfieldActionPerformed
         this.jSearchActionPerformed(evt);

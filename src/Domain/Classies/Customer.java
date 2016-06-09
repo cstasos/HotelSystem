@@ -92,15 +92,16 @@ public class Customer {
     }
     
     public String toolString(){
-        return "Name: "+lname +" "+fname +" Gender: "+gender +" IDnumber: "+ AT +" Telephone: "+phone;
+        return "CustomerID #"+ cID +"#"+"\nName: "+lname +" "+fname +"\nGender: "+gender +"\nIDnumber: "+ AT +"\nTelephone: "+phone;
     }
 
     public String CustomerName(){
-        if(this.gender.equals("Male"))
-            return "Sir "+lname +" "+fname;
-        else if(this.gender.equals("Female"))
-            return "Miss "+lname +" "+fname;
-        else
+        if(this.gender!=null){
+            if(this.gender.equals("Male"))
+                return "Sir "+lname +" "+fname;
+            else
+                return "Miss "+lname +" "+fname;
+        }else
             return "Name: "+lname +" "+fname;
     }
     

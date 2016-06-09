@@ -94,5 +94,18 @@ public class DBHandlerGetter {
         
         return true; 
     }
-
+    
+    public static List<Booking> getBookingforCheckin(String s){
+        List<Booking> books = BookingDB.getBookingByAny(s);
+        List<Booking> checkbooks = BookingDB.getAllCheckinBooking();
+        books.removeAll(checkbooks);
+        return books;
+    }
+    
+    public static List<Booking> getCheckinforCheckout(String s){
+        List<Booking> books = BookingDB.getBookingByAny(s);
+        List<Booking> checkbooks = BookingDB.getAllCheckinBooking();
+        books.retainAll(checkbooks);
+        return books;
+    }
 }

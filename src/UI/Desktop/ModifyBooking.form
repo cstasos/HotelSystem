@@ -113,6 +113,9 @@
                   <SubComponents>
                     <Component class="javax.swing.JCheckBox" name="jRoombox">
                       <Properties>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="0" green="0" red="5" type="rgb"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="Room(s)"/>
                         <Property name="enabled" type="boolean" value="false"/>
                         <Property name="horizontalAlignment" type="int" value="0"/>
@@ -322,6 +325,9 @@
                           <SubComponents>
                             <Component class="javax.swing.JCheckBox" name="jCheckbox">
                               <Properties>
+                                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                                  <Color blue="1" green="1" red="1" type="rgb"/>
+                                </Property>
                                 <Property name="text" type="java.lang.String" value="Check in/out"/>
                                 <Property name="enabled" type="boolean" value="false"/>
                                 <Property name="horizontalAlignment" type="int" value="0"/>
@@ -484,6 +490,9 @@
                   <SubComponents>
                     <Component class="javax.swing.JCheckBox" name="jCustomerbox">
                       <Properties>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="1" green="1" red="1" type="rgb"/>
+                        </Property>
                         <Property name="text" type="java.lang.String" value="Customer"/>
                         <Property name="enabled" type="boolean" value="false"/>
                         <Property name="horizontalAlignment" type="int" value="0"/>

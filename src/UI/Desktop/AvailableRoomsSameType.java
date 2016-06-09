@@ -87,6 +87,8 @@ public class AvailableRoomsSameType extends javax.swing.JFrame {
         jPanel5.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
         jLabel3.setEditable(false);
+        jLabel3.setDisabledTextColor(new java.awt.Color(1, 1, 1));
+        jLabel3.setEnabled(false);
         jLabel3.setMaximumSize(new java.awt.Dimension(2147483647, 50));
         jLabel3.setPreferredSize(new java.awt.Dimension(6, 40));
         jScrollPane2.setViewportView(jLabel3);

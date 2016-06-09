@@ -32,5 +32,13 @@ public class DBHandlerSetter {
         CustomerDB.updateCustomer(b.getCustomer());
         BookingDB.updateBooking(b);
     }
+
+    public static void chechin(int bid) {
+        BookingDB.checkin(bid);
+    }
+
+    public static void chechout(Booking b) {
+        BookingDB.checkout(b);
+    }
     
 }

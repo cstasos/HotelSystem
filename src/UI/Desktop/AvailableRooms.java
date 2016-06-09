@@ -144,6 +144,8 @@ public class AvailableRooms extends javax.swing.JFrame {
         jScrollPane2.setPreferredSize(new java.awt.Dimension(8, 40));
 
         jTooltext.setEditable(false);
+        jTooltext.setDisabledTextColor(new java.awt.Color(1, 1, 1));
+        jTooltext.setEnabled(false);
         jTooltext.setMaximumSize(new java.awt.Dimension(2147483647, 50));
         jTooltext.setPreferredSize(new java.awt.Dimension(6, 40));
         jScrollPane2.setViewportView(jTooltext);
