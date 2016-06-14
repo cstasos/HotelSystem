@@ -103,7 +103,7 @@ public class BookingDB extends DataBase {
             int value = Integer.parseInt(s);
 
             try {
-                String query = "SELECT DISTINCT * FROM room_reservation_customer where type = ? or id = ? or reservation_id = ?";            
+                String query = "SELECT DISTINCT * FROM room_reservation_customer where type = ? or id = ? or reservation_id = ? or customer_id = ?";            
                 PreparedStatement pst = null;
                 ResultSet rs = null;
 
@@ -112,6 +112,7 @@ public class BookingDB extends DataBase {
                 pst.setInt(1, value);
                 pst.setInt(2, value);
                 pst.setInt(3, value);
+                pst.setInt(4, value);
 
                 rs=pst.executeQuery();
 

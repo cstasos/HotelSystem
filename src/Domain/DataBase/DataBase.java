@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
  * @author sakis
  */
 public class DataBase {
-    protected static final String url = "jdbc:mysql://localhost:3306/Hoteldb";
+    protected static final String url = "jdbc:mysql://localhost:3306/Hotel_System";
     protected static final String user = "root";
     protected static final String password = "tasos";
     protected static Connection con;
