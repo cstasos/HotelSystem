@@ -370,7 +370,7 @@ public class BookingDB extends DataBase {
         List<Booking> bookings = new ArrayList<Booking>();
         Connection();
         try {
-            String query = "SELECT * FROM Hoteldb.Reservation where Reservation.id "
+            String query = "SELECT * FROM Reservation where Reservation.id "
                     + "in (select CheckedIn.reservation_id From CheckedIn)";            
             PreparedStatement pst = null;
             ResultSet rs = null;
