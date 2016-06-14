@@ -99,8 +99,10 @@ public class Customer {
         if(this.gender!=null){
             if(this.gender.equals("Male"))
                 return "Sir "+lname +" "+fname;
-            else
+            else if(this.gender.equals("Female"))
                 return "Miss "+lname +" "+fname;
+            else
+                return "Name "+lname +" "+fname;
         }else
             return "Name: "+lname +" "+fname;
     }

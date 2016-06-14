@@ -340,10 +340,11 @@ public class BookingDB extends DataBase {
         Customer customer = (Customer) b.getCustomer();
         
         deleteFromReservationByBookingId(bid);
-        
+        deleteFromPivotByBookingId(bid);
+        //insert into Reservation (checkin, checkout, customer_id) values ( ?, ?, ?)"
         Connection();
         try {
-            String query = "insert into History  values ( ?, ?, ?, ?)";            
+            String query = "insert into History (reservation_id, checkin, checkout, customer_id) values ( ?, ?, ?, ?)";            
             PreparedStatement pst = null;
             ResultSet rs = null;
             

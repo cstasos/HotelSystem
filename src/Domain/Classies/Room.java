@@ -5,6 +5,9 @@
  */
 package Domain.Classies;
 
+import TechnicalServices.Price;
+import java.util.Locale;
+
 /**
  *
  * @author sakis
@@ -19,14 +22,14 @@ public abstract class Room {
     
     private int ID;
     private String type;
-    private int price;
+    private Price price;
     
     Room(){}
     
     Room(int id, String tp, int p){
         this.ID = id;
         this.type = tp;
-        this.price = p;
+        this.price = new Price(p,Locale.US);
     }
     
     public abstract String Benefits();
@@ -38,7 +41,7 @@ public abstract class Room {
     }
     
     public int getPrice(){
-        return this.price;
+        return this.price.getAmount();
     }
     
     @Override
@@ -58,7 +61,7 @@ public abstract class Room {
 
     @Override
     public String toString() {
-        return "IDroom= "+ ID + ", type= " + type + ", price= " + price+"$";
+        return "IDroom= "+ ID + ", type= " + type + ", price= " + price.getAmount()+price.getCurrency();
     }
     
        

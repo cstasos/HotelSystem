@@ -248,6 +248,7 @@
                   <Properties>
                     <Property name="horizontalAlignment" type="int" value="0"/>
                     <Property name="text" type="java.lang.String" value="Search_Customer"/>
+                    <Property name="toolTipText" type="java.lang.String" value="Type * for display all"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jSearchfieldActionPerformed"/>

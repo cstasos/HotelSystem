@@ -68,10 +68,9 @@ public class DBHandlerGetter {
             try {
                 parts[0] = dbformat.format((Date)editformat.parse(parts[0]));
                 parts[1] = dbformat.format((Date)editformat.parse(parts[1]));
-            } catch (ParseException ex) {
-                Logger.getLogger(DBHandlerGetter.class.getName()).log(Level.SEVERE, null, ex);
-            } finally{
                 books = BookingDB.getBetweentDates(parts[0], parts[1]);
+            } catch (ParseException ex) {
+                books = BookingDB.getBookingByAny(s);
             }
         }
         return books;

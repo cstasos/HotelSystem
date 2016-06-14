@@ -8,7 +8,6 @@ package TechnicalServices;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -24,7 +23,7 @@ public class myDate {
     private String dname;
     private Date date;
     private String slash= "[/]";
-    private String dateformat = "dd/MM/yyyy";
+    private static final String dateformat = "dd/MM/yyyy";
     private SimpleDateFormat format = new SimpleDateFormat(dateformat);
     
     public myDate(String data){
@@ -52,21 +51,6 @@ public class myDate {
         return this.dname;
     }
     
-    public static int getDuration(myDate d1, myDate d2){
-        System.out.println ("myDay1: "+d1.getDateName()+" myDay2: "+d2.getDateName());
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            Date D1 = format.parse(d1.getDateName());
-            Date D2 = format.parse(d2.getDateName());
-            long diff = D2.getTime() - D1.getTime();
-            System.out.println ("Days: " + TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS));
-            return (int) TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS) + 1;
-        } catch (ParseException ex) {
-            Logger.getLogger(myDate.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return -1;
-    }
-
     public static boolean betweenTo(String comp, String startdate, String findate){
        myDate c = new myDate(comp);
        myDate sd = new myDate(startdate);

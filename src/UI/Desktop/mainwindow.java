@@ -169,7 +169,6 @@ public class mainwindow extends javax.swing.JFrame {
         jcheckClear = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(500, 400));
 
         jCheckTab.setToolTipText("");
 
@@ -472,6 +471,7 @@ public class mainwindow extends javax.swing.JFrame {
 
         jmodifySearchtext.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jmodifySearchtext.setText("Search_Booking");
+        jmodifySearchtext.setToolTipText("Type * for display all");
         jmodifySearchtext.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmodifySearchtextActionPerformed(evt);
@@ -480,6 +480,7 @@ public class mainwindow extends javax.swing.JFrame {
         jPanel14.add(jmodifySearchtext, java.awt.BorderLayout.CENTER);
 
         jmodifySearch.setText("Search");
+        jmodifySearch.setToolTipText("Search Bookings by anything");
         jmodifySearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmodifySearchActionPerformed(evt);
@@ -492,6 +493,7 @@ public class mainwindow extends javax.swing.JFrame {
         jPanel15.setLayout(new java.awt.GridLayout(1, 1, 0, 100));
 
         jmodifyBooklist.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jmodifyBooklist.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jmodifyBooklist.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jmodifyBooklistMouseClicked(evt);
@@ -523,6 +525,7 @@ public class mainwindow extends javax.swing.JFrame {
         jPanel19.setLayout(new java.awt.GridLayout(1, 1));
 
         jmodifyRoomlist.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jmodifyRoomlist.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jmodifyRoomlist.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jmodifyRoomlistMouseClicked(evt);
@@ -629,6 +632,7 @@ public class mainwindow extends javax.swing.JFrame {
 
         jcheckSearch.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jcheckSearch.setText("Search_Booking");
+        jcheckSearch.setToolTipText("Type * for display all");
         jcheckSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jcheckSearchActionPerformed(evt);
@@ -637,7 +641,6 @@ public class mainwindow extends javax.swing.JFrame {
         jPanel28.add(jcheckSearch);
 
         jPanel39.setMaximumSize(new java.awt.Dimension(15, 15));
-        jPanel39.setMinimumSize(new java.awt.Dimension(10, 10));
         jPanel39.setPreferredSize(new java.awt.Dimension(15, 15));
 
         javax.swing.GroupLayout jPanel39Layout = new javax.swing.GroupLayout(jPanel39);
@@ -654,6 +657,7 @@ public class mainwindow extends javax.swing.JFrame {
         jPanel28.add(jPanel39);
 
         jcheckSearchbutton.setText("Search");
+        jcheckSearchbutton.setToolTipText("Search Check in/out Bookings");
         jcheckSearchbutton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jcheckSearchbuttonActionPerformed(evt);
@@ -899,6 +903,7 @@ public class mainwindow extends javax.swing.JFrame {
         jType.setSelectedIndex(0);
         jCheckintext.setValue(Date.from(Instant.now()));
         jCheckouttext.setValue(Date.from(Instant.now()));
+        jCustomertext.setText("");
         jCustomertext.setBorder(BorderFactory.createLineBorder(Color.red));
     }//GEN-LAST:event_jClearbuttonActionPerformed
 
@@ -992,8 +997,10 @@ public class mainwindow extends javax.swing.JFrame {
         books = DBHandlerGetter.getBookingByAny(this.jmodifySearchtext.getText());
         if(!books.isEmpty()){
             this.addBookingsforModify();
-        }else
+        }else{
             JOptionPane.showMessageDialog(null, "Can't find booking details with `"+this.jmodifySearchtext.getText()+"`.", "Alert", JOptionPane.ERROR_MESSAGE);
+            this.jmodifyClearActionPerformed(null);
+        }
     }//GEN-LAST:event_jmodifySearchActionPerformed
 
     private void jmodifyBooklistMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jmodifyBooklistMouseClicked
@@ -1028,6 +1035,8 @@ public class mainwindow extends javax.swing.JFrame {
     }//GEN-LAST:event_jmodifyCancelActionPerformed
 
     private void jmodifySearchtextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmodifySearchtextActionPerformed
+        this.modifyroomlistModel.clear();
+        this.jmodifyRBenefits.setText("");
         this.jmodifySearchActionPerformed(null);
     }//GEN-LAST:event_jmodifySearchtextActionPerformed
 
@@ -1041,14 +1050,14 @@ public class mainwindow extends javax.swing.JFrame {
             if(!books.isEmpty()){
                 this.addBookingsforCheckinout();
             }else
-                JOptionPane.showMessageDialog(null, "Can't find booking details with `"+this.jmodifySearchtext.getText()+"`.", "Alert", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Can't find booking details with `"+this.jcheckSearch.getText()+"`.", "Alert", JOptionPane.ERROR_MESSAGE);
         }else{
             //checkout
             books = DBHandlerGetter.getCheckinforCheckout(this.jcheckSearch.getText());
             if(!books.isEmpty()){
                 this.addBookingsforCheckinout();
             }else
-                JOptionPane.showMessageDialog(null, "Can't find checkin booking details with `"+this.jmodifySearchtext.getText()+"`.", "Alert", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Can't find checkin booking details with `"+this.jcheckSearch.getText()+"`.", "Alert", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jcheckSearchbuttonActionPerformed
 

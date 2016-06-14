@@ -20,12 +20,14 @@ public class AvailableRoomsSameType extends javax.swing.JFrame {
      * Creates new form AvailableRoomsSameType
      */
     public AvailableRoomsSameType(ModifyBooking mw) {
+        super("Available Rooms");
         myfather2 = mw;
         initComponents();
         myInit();
     }
     
     public AvailableRoomsSameType(mainwindow mw) {
+        super("Available Rooms");
         myfather1 = mw;
         initComponents();
         myInit();

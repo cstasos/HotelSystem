@@ -6,6 +6,7 @@
 package Domain.Classies;
 
 import TechnicalServices.myDate;
+import java.util.concurrent.TimeUnit;
 
 /**
  *
@@ -37,7 +38,9 @@ public class ReservationDate {
     }
     
     public int Duration(){
-        return myDate.getDuration(this.checkin, this.checkout);
+        long diff = this.checkout.getDate().getTime() - this.checkin.getDate().getTime();
+        System.out.println ("Days: " + TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS));
+        return (int) TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS) + 1;
     }
     
     @Override

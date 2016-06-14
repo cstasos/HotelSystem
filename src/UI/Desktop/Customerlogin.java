@@ -213,6 +213,7 @@ public class Customerlogin extends javax.swing.JFrame {
 
         jSearchfield.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jSearchfield.setText("Search_Customer");
+        jSearchfield.setToolTipText("Type * for display all");
         jSearchfield.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jSearchfieldActionPerformed(evt);

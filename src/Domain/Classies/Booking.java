@@ -5,6 +5,7 @@
  */
 package Domain.Classies;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,9 +14,16 @@ import java.util.List;
  */
 public class Booking {
     private int bookid;
-    private List<Room> rooms;
+    private List<Room> rooms = new ArrayList();
     private Customer customer;
     private ReservationDate date;
+    
+    public void deepcopy(Booking b){
+        this.bookid = b.bookid;
+        this.rooms.addAll(b.getRooms());
+        this.customer = new Customer(b.getCustomer());
+        this.date = new ReservationDate(b.getReservationDate().getCheckinName(),b.getReservationDate().getCheckoutName());
+    }
 
     public int getBookid() {
         return bookid;

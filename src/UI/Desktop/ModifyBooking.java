@@ -37,6 +37,8 @@ public class ModifyBooking extends javax.swing.JFrame {
     private DefaultListModel newlistmodel;
     
     private boolean flagdate = false;
+    private boolean flagCustomer = false;
+    private boolean flagRoom = false;
     
     private List<Room> r1;
 
@@ -45,7 +47,8 @@ public class ModifyBooking extends javax.swing.JFrame {
      */
     public ModifyBooking(Booking b) {
         super("Booking details #"+b.getBookid()+"# |"+b.getCustomer().CustomerName()+ " | "+ b.getReservationDate().toString());
-        book = b;
+        book = new Booking();
+        book.deepcopy(b);
         initComponents();
         myInit();
     }
@@ -99,9 +102,9 @@ public class ModifyBooking extends javax.swing.JFrame {
         jPanel14 = new javax.swing.JPanel();
         jPanel20 = new javax.swing.JPanel();
         jCheckouttext = new javax.swing.JFormattedTextField(factory, new Date());
-        jCheckDates = new javax.swing.JButton();
         jPanel13 = new javax.swing.JPanel();
         jConfirm = new javax.swing.JButton();
+        jCheckDates = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jPanel21 = new javax.swing.JPanel();
         jCustomerbox = new javax.swing.JCheckBox();
@@ -273,15 +276,6 @@ public class ModifyBooking extends javax.swing.JFrame {
         });
         jPanel20.add(jCheckouttext);
 
-        jCheckDates.setText("Check");
-        jCheckDates.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jCheckDates.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckDatesActionPerformed(evt);
-            }
-        });
-        jPanel20.add(jCheckDates);
-
         jPanel14.add(jPanel20, java.awt.BorderLayout.CENTER);
 
         jPanel12.add(jPanel14, java.awt.BorderLayout.SOUTH);
@@ -300,6 +294,15 @@ public class ModifyBooking extends javax.swing.JFrame {
             }
         });
         jPanel13.add(jConfirm, java.awt.BorderLayout.PAGE_END);
+
+        jCheckDates.setText("Check");
+        jCheckDates.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jCheckDates.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckDatesActionPerformed(evt);
+            }
+        });
+        jPanel13.add(jCheckDates, java.awt.BorderLayout.PAGE_START);
 
         jPanel6.add(jPanel13, java.awt.BorderLayout.SOUTH);
 
@@ -425,17 +428,26 @@ public class ModifyBooking extends javax.swing.JFrame {
 
     private void jConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jConfirmActionPerformed
         // Confirm
+        System.out.println(book.getRooms().toString());
+        int option = 0;
         if(!this.jRoombox.isSelected() && !this.jCheckbox.isSelected() && !this.jCustomerbox.isSelected())
             JOptionPane.showMessageDialog(null, "No changes were made!", "Alert", JOptionPane.ERROR_MESSAGE);
         else{
             //update
             this.jCheckDatesActionPerformed(null);
-            if(flagdate && CheckCustomer()){
-                UpdateBook();
-                DBHandlerSetter.updateBooking(book);
-                this.dispose();
-            }else
-                JOptionPane.showMessageDialog(null, "Invalid Date", "Alert", JOptionPane.ERROR_MESSAGE);
+            if(flagdate && flagCustomer && flagRoom){
+                String st = "Are you agree with the following modify?"
+                    + "\nBooking id #"+book.getBookid()+"#"+"Number of rooms: "+book.getRooms().size() + " Period: "+ book.getReservationDate().getCheckinName() +" to "+ book.getReservationDate().getCheckoutName() +" Total cost: $"+book.getTotalCost();
+                option = JOptionPane.showConfirmDialog(null, st, "Alert", JOptionPane.YES_NO_OPTION);
+                if(option == JOptionPane.YES_OPTION){
+                    UpdateBook();
+                    DBHandlerSetter.updateBooking(book);
+                    this.dispose();
+                }
+                flagdate=false;
+                flagCustomer=false;
+                flagRoom=false;
+            }
         }
     }//GEN-LAST:event_jConfirmActionPerformed
 
@@ -502,47 +514,70 @@ public class ModifyBooking extends javax.swing.JFrame {
 
     private void jCheckDatesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckDatesActionPerformed
         // check dates
-        flagdate = false;
+        flagdate = CheckDates();
+        flagCustomer = CheckCustomer();
+        flagRoom = CheckList();      
+    }//GEN-LAST:event_jCheckDatesActionPerformed
+
+    private boolean CheckDates(){
         this.jCheckintext.setBorder(null);
         this.jCheckouttext.setBorder(null);
-        if(!DBHandlerGetter.CheckmodifyDate(book.getBookid(),book.getRooms(), this.getReservationChekin(), this.getReservationChekout())){
+        book.setDate(this.getReservationChekin(), this.getReservationChekout());
+        if(!DBHandlerGetter.CheckmodifyDate(book.getBookid(),book.getRooms(), book.getReservationDate().getCheckinName(), book.getReservationDate().getCheckoutName())){
             JOptionPane.showMessageDialog(null, "You can't change the reservation dates to "+this.getReservationChekin()+" and "+this.getReservationChekout()+"\nPlease check again!", "Alert", JOptionPane.ERROR_MESSAGE);
             this.jCheckintext.setBorder(BorderFactory.createLineBorder(Color.red));
             this.jCheckouttext.setBorder(BorderFactory.createLineBorder(Color.red));
+            return false;
         }else{
             this.jCheckintext.setBorder(BorderFactory.createLineBorder(Color.green));
             this.jCheckouttext.setBorder(BorderFactory.createLineBorder(Color.green));
-            flagdate = true;
+            return true;
         }
-            
-    }//GEN-LAST:event_jCheckDatesActionPerformed
-
+    }
+    
     private boolean CheckCustomer(){
         this.jLnametext.setBorder(null);
         this.jFnametext.setBorder(null);
         this.jIDtext.setBorder(null);
         if(this.jLnametext.getText().equals(""))
             this.jLnametext.setBorder(BorderFactory.createLineBorder(Color.red));
+        else
+            this.jLnametext.setBorder(BorderFactory.createLineBorder(Color.green));
         
         if(this.jFnametext.getText().equals(""))
             this.jFnametext.setBorder(BorderFactory.createLineBorder(Color.red));
+        else
+            this.jFnametext.setBorder(BorderFactory.createLineBorder(Color.green));
         
         if(this.jIDtext.getText().equals(""))
             this.jIDtext.setBorder(BorderFactory.createLineBorder(Color.red));
+        else
+            this.jIDtext.setBorder(BorderFactory.createLineBorder(Color.green));
         
-        if(this.jLnametext.getText().equals("") || this.jFnametext.getText().equals("") || this.jIDtext.getText().equals(""))
+        if(this.jLnametext.getText().equals("") || this.jFnametext.getText().equals("") || this.jIDtext.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Invalid Customer inputs", "Alert", JOptionPane.ERROR_MESSAGE);
             return false;
+        }
         
         return true;
     }
     
+    private boolean CheckList(){
+        this.jList1.setBorder(null);
+        if(!this.roomlistmodel.isEmpty()){
+            this.jList1.setBorder(BorderFactory.createLineBorder(Color.green));
+            return true;
+        }else{
+            this.jList1.setBorder(BorderFactory.createLineBorder(Color.red));
+            JOptionPane.showMessageDialog(null, "You have to add room first", "Alert", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+    }
+    
     private void UpdateBook(){
         book.setDate(this.getReservationChekin(), this.getReservationChekout());
-        System.out.println("BOOK 1: "+book.getCustomer().getCID()+" name: "+book.getCustomer().toString()+" Gender: "+book.getCustomer().getGender());
         Customer c = new Customer(book.getCustomer().getCID(), this.jFnametext.getText(), this.jLnametext.getText(), this.jGender.getSelectedItem().toString(), this.jIDtext.getText(), this.jPhonetext.getText());
-        System.out.println("C: "+c.getCID()+" name: "+c.toString()+" Gender: "+c.getGender());
         book.setCustomer(c);
-        System.out.println("BOOK 2: "+book.getCustomer().getCID()+" name: "+book.getCustomer().toString()+" Gender: "+book.getCustomer().getGender());
     }
     
     private void addRoomstoList(){
