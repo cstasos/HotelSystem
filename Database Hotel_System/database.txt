@@ -1,0 +1,16 @@
+﻿Σύνδεση με την βάση δεδομένων στον κώδικα.
+
+Οι παρακάτω γραμμές βρίσκονται στο Πακέτο Domain.DataBase και στο αρχείο DataBase.java
+
+
+
+url = "jdbc:mysql://localhost:3306/Hotel_System"
+
+user = "root";
+
+password = "tasos";
+
+
+
+
+Το αρχείο Hotel_System.sql δημιουργεί νέο SCHEMA με όνομα Hotel_System
